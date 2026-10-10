@@ -1,0 +1,5303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8602333070445192"
+crossorigin="anonymous"></script>
+
+
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Locklet Pro — Secure Digital Document Storage</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #03020a;
+      --s1: #080714;
+      --s2: #0d0b1c;
+      --s3: #131126;
+      --s4: #1a1830;
+      --s5: #22203a;
+      --border: rgba(255, 255, 255, .055);
+      --border-hi: rgba(255, 255, 255, .1);
+      --border-gold: rgba(232, 184, 109, .28);
+      --gold: #e8b86d;
+      --gold2: #fde68a;
+      --gold3: #c8922e;
+      --gold-glow: rgba(232, 184, 109, .35);
+      --gold-dim: rgba(232, 184, 109, .07);
+      --violet: #9b6dff;
+      --violet2: #c4b5fd;
+      --violet3: #7c3aed;
+      --violet-dim: rgba(155, 109, 255, .07);
+      --green: #34d399;
+      --green2: #6ee7b7;
+      --green-dim: rgba(52, 211, 153, .07);
+      --blue: #60a5fa;
+      --blue-dim: rgba(96, 165, 250, .07);
+      --red: #f87171;
+      --red-dim: rgba(248, 113, 113, .07);
+      --cyan: #22d3ee;
+      --cyan-dim: rgba(34, 211, 238, .07);
+      --text: #f1ecfc;
+      --t2: #8b80a8;
+      --t3: #3d3660;
+      --radius-card: 24px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CUSTOM CURSOR ── */
+    #cursor {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      transition: transform .12s ease, opacity .12s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    #cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid rgba(232, 184, 109, .5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: all .22s ease;
+      transform: translate(-50%, -50%);
+    }
+
+    body:hover #cursor {
+      opacity: 1;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 997;
+      pointer-events: none;
+      opacity: .028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px 160px;
+    }
+
+    /* ── CANVAS PARTICLES ── */
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .45;
+    }
+
+    /* ── ORBS ── */
+    .bg-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(130px);
+      animation: drift 22s ease-in-out infinite;
+    }
+
+    .orb-a {
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(155, 109, 255, .13), transparent 65%);
+      top: -300px;
+      left: -250px;
+      animation-delay: 0s;
+    }
+
+    .orb-b {
+      width: 580px;
+      height: 580px;
+      background: radial-gradient(circle, rgba(232, 184, 109, .09), transparent 65%);
+      top: 25%;
+      right: -200px;
+      animation-delay: -8s;
+    }
+
+    .orb-c {
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(52, 211, 153, .06), transparent 65%);
+      bottom: 0;
+      left: 0;
+      animation-delay: -15s;
+    }
+
+    .orb-d {
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(96, 165, 250, .07), transparent 65%);
+      top: 60%;
+      left: 40%;
+      animation-delay: -6s;
+    }
+
+    .orb-e {
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(34, 211, 238, .05), transparent 65%);
+      bottom: 20%;
+      right: 5%;
+      animation-delay: -11s;
+    }
+
+    @keyframes drift {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(28px, -22px) scale(1.04);
+      }
+
+      66% {
+        transform: translate(-18px, 26px) scale(.97);
+      }
+    }
+
+    /* ── GRID ── */
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, .012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .012) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 95% 65% at 50% 0%, black 5%, transparent 100%);
+    }
+
+    /* ── LAYOUT ── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 490px;
+      margin: 0 auto;
+      padding: 0 22px 100px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 0 20px;
+      animation: navDrop .9s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    @keyframes navDrop {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+    }
+
+    .real-logo-wrap {
+      position: relative;
+      width: 42px;
+      height: 42px;
+      flex-shrink: 0;
+    }
+
+    .real-logo {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      object-fit: cover;
+      box-shadow: 0 0 22px rgba(155, 109, 255, .45), 0 6px 18px rgba(0, 0, 0, .55);
+      transition: transform .3s cubic-bezier(.16, 1, .3, 1), box-shadow .3s;
+      display: block;
+    }
+
+    .nav-logo:hover .real-logo {
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 0 38px rgba(155, 109, 255, .65), 0 10px 26px rgba(0, 0, 0, .6);
+    }
+
+    .gem-wrap {
+      position: relative;
+      width: 42px;
+      height: 42px;
+    }
+
+    .gem-ring {
+      position: absolute;
+      inset: -4px;
+      border-radius: 16px;
+      background: conic-gradient(from var(--angle, 0deg), #e8b86d, #9b6dff, #34d399, #e8b86d);
+      animation: spinRing 4s linear infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask-composite: exclude;
+      padding: 1.5px;
+      border-radius: 17px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .nav-logo:hover .gem-ring {
+      opacity: 1;
+    }
+
+    @property --angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes spinRing {
+      to {
+        --angle: 360deg;
+      }
+    }
+
+    .gem {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(145deg, #f8d882, #d4932e 48%, #7c3e00);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 28px rgba(232, 184, 109, .4), 0 6px 18px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .28);
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s cubic-bezier(.16, 1, .3, 1), box-shadow .3s;
+    }
+
+    .gem:hover {
+      transform: scale(1.1) rotate(-6deg);
+      box-shadow: 0 0 44px rgba(232, 184, 109, .6), 0 10px 26px rgba(0, 0, 0, .6);
+    }
+
+    .gem::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .3) 0%, transparent 52%);
+      border-radius: inherit;
+    }
+
+    .gem svg {
+      width: 20px;
+      height: 20px;
+      fill: #fff;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -.04em;
+      color: var(--text);
+    }
+
+    .logo-name em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(52, 211, 153, .06);
+      border: 1px solid rgba(52, 211, 153, .25);
+      border-radius: 20px;
+      padding: 7px 14px;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--green);
+      letter-spacing: .04em;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px var(--green);
+      animation: pulse 2s ease infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .3;
+        transform: scale(.7);
+      }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 36px 0 30px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(232, 184, 109, .22);
+      background: rgba(232, 184, 109, .055);
+      border-radius: 30px;
+      padding: 6px 16px 6px 8px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+      backdrop-filter: blur(8px);
+      animation: fadeUp 1s cubic-bezier(.16, 1, .3, 1) .1s both;
+    }
+
+    .eyebrow-icon {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, rgba(232, 184, 109, .3), rgba(232, 184, 109, .1));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(232, 184, 109, .28);
+    }
+
+    .eyebrow-icon svg {
+      width: 10px;
+      height: 10px;
+      fill: var(--gold);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 7.5vw, 44px);
+      line-height: 1.04;
+      letter-spacing: -.04em;
+      margin-bottom: 16px;
+      animation: fadeUp 1s cubic-bezier(.16, 1, .3, 1) .17s both;
+    }
+
+    .grad {
+      background: linear-gradient(105deg, var(--gold2) 0%, var(--gold) 25%, #a78bfa 58%, var(--violet2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 220% auto;
+      animation: shimmer 6s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+
+      0%,
+      100% {
+        background-position: 0% center;
+      }
+
+      50% {
+        background-position: 100% center;
+      }
+    }
+
+    .hero-desc {
+      font-size: 13.5px;
+      color: var(--t2);
+      line-height: 1.82;
+      font-weight: 300;
+      max-width: 370px;
+      margin-bottom: 28px;
+      animation: fadeUp 1s cubic-bezier(.16, 1, .3, 1) .24s both;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: flex;
+      background: var(--s1);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      margin-bottom: 28px;
+      animation: fadeUp 1s cubic-bezier(.16, 1, .3, 1) .3s both;
+      position: relative;
+    }
+
+    .stats-row::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(232, 184, 109, .04), transparent 50%, rgba(155, 109, 255, .03));
+      pointer-events: none;
+    }
+
+    .stat {
+      flex: 1;
+      padding: 13px 6px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+      transition: background .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat:last-child {
+      border-right: none;
+    }
+
+    .stat::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(232, 184, 109, .07), transparent 65%);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .stat:hover::after {
+      opacity: 1;
+    }
+
+    .stat-n {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(14px, 4vw, 20px);
+      color: var(--gold);
+      letter-spacing: -.03em;
+      display: block;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-l {
+      font-size: clamp(7px, 1.8vw, 9px);
+      color: var(--t2);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* ── PLAY BUTTON ── */
+    .play-wrap {
+      animation: fadeUp 1s cubic-bezier(.16, 1, .3, 1) .36s both;
+      margin-bottom: 10px;
+    }
+
+    .play-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(140deg, rgba(12, 10, 22, .98), rgba(20, 16, 36, .98));
+      border: 1px solid var(--border-gold);
+      border-radius: 18px;
+      padding: 13px 16px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform .3s cubic-bezier(.16, 1, .3, 1), box-shadow .3s, border-color .3s;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, .6), inset 0 1px 0 rgba(255, 255, 255, .07);
+      backdrop-filter: blur(16px);
+      width: 100%;
+    }
+
+    .play-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, rgba(232, 184, 109, .08), rgba(155, 109, 255, .05));
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .play-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -130%;
+      width: 75%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .055), transparent);
+      transition: left .65s ease;
+    }
+
+    .play-btn:hover {
+      transform: translateY(-5px) scale(1.01);
+      border-color: rgba(232, 184, 109, .6);
+      box-shadow: 0 22px 60px rgba(0, 0, 0, .65), 0 0 44px rgba(232, 184, 109, .15), inset 0 1px 0 rgba(255, 255, 255, .12);
+    }
+
+    .play-btn:hover::before {
+      opacity: 1;
+    }
+
+    .play-btn:hover::after {
+      left: 160%;
+    }
+
+    .play-btn.ocr-btn:hover {
+      border-color: rgba(34, 211, 238, .6) !important;
+      box-shadow: 0 22px 60px rgba(0, 0, 0, .65), 0 0 44px rgba(34, 211, 238, .2), inset 0 1px 0 rgba(255, 255, 255, .12);
+    }
+    .play-btn.ocr-btn::before {
+      background: linear-gradient(115deg, rgba(34, 211, 238, .1), rgba(155, 109, 255, .05));
+    }
+    .play-btn.ocr-btn:hover .play-dl {
+      background: rgba(34, 211, 238, .25) !important;
+    }
+
+    .play-btn:active {
+      transform: translateY(-2px);
+    }
+
+    .ps-icon-box {
+      width: 46px;
+      height: 46px;
+      flex-shrink: 0;
+      background: linear-gradient(150deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .03));
+      border: 1px solid rgba(255, 255, 255, .13);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 16px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 255, 255, .12);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ps-icon-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(150deg, rgba(255, 255, 255, .08), transparent 55%);
+    }
+
+    .ps-icon-box svg {
+      width: 24px;
+      height: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .play-mid {
+      flex: 1;
+    }
+
+    .play-sub-txt {
+      font-size: 8.5px;
+      color: var(--t2);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 3px;
+    }
+
+    .play-main-txt {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(15px, 4.5vw, 19px);
+      color: var(--text);
+      letter-spacing: -.025em;
+      line-height: 1;
+    }
+
+    .play-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .play-stars {
+      display: flex;
+      gap: 2px;
+    }
+
+    .play-stars svg {
+      width: 11px;
+      height: 11px;
+      fill: var(--gold);
+    }
+
+    .play-dl {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(232, 184, 109, .13);
+      border: 1px solid rgba(232, 184, 109, .3);
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(9px, 2.5vw, 11px);
+      font-weight: 700;
+      color: var(--gold);
+      transition: background .25s;
+      white-space: nowrap;
+    }
+
+    .play-btn:hover .play-dl {
+      background: rgba(232, 184, 109, .25);
+    }
+
+    .play-dl svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--gold);
+    }
+
+    .test-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      background: rgba(155, 109, 255, .07);
+      border: 1px solid rgba(155, 109, 255, .2);
+      border-radius: 12px;
+      padding: 8px 14px;
+      margin-top: 10px;
+      font-size: clamp(9px, 2.5vw, 11px);
+      color: var(--violet2);
+      font-weight: 400;
+      letter-spacing: .02em;
+    }
+
+    .test-badge svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--violet);
+    }
+
+    /* ── SECTION LABEL ── */
+    .sl {
+      font-size: 9px;
+      color: var(--t3);
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin: 28px 0 12px 2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sl::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--t3), transparent);
+    }
+
+    /* ── CARDS ── */
+    .card {
+      background: var(--s1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      margin-bottom: 10px;
+      transition: border-color .35s, transform .35s cubic-bezier(.16, 1, .3, 1), box-shadow .35s;
+      position: relative;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255, 255, 255, .025), transparent 55%);
+      pointer-events: none;
+      border-radius: inherit;
+    }
+
+    .card:hover {
+      border-color: rgba(232, 184, 109, .18);
+      transform: translateY(-4px);
+      box-shadow: 0 28px 70px rgba(0, 0, 0, .58), 0 0 0 1px rgba(232, 184, 109, .05);
+    }
+
+    .ct {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 17px 22px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255, 255, 255, .014);
+    }
+
+    .ci {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ci svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .ci.g {
+      background: linear-gradient(135deg, rgba(232, 184, 109, .18), rgba(232, 184, 109, .06));
+      border: 1px solid rgba(232, 184, 109, .25);
+    }
+
+    .ci.g svg {
+      fill: var(--gold);
+    }
+
+    .ci.v {
+      background: linear-gradient(135deg, rgba(155, 109, 255, .18), rgba(155, 109, 255, .06));
+      border: 1px solid rgba(155, 109, 255, .25);
+    }
+
+    .ci.v svg {
+      fill: var(--violet);
+    }
+
+    .ci.gr {
+      background: linear-gradient(135deg, rgba(52, 211, 153, .18), rgba(52, 211, 153, .06));
+      border: 1px solid rgba(52, 211, 153, .25);
+    }
+
+    .ci.gr svg {
+      fill: var(--green);
+    }
+
+    .ci.b {
+      background: linear-gradient(135deg, rgba(96, 165, 250, .18), rgba(96, 165, 250, .06));
+      border: 1px solid rgba(96, 165, 250, .25);
+    }
+
+    .ci.b svg {
+      fill: var(--blue);
+    }
+
+    .ci.c {
+      background: linear-gradient(135deg, rgba(34, 211, 238, .18), rgba(34, 211, 238, .06));
+      border: 1px solid rgba(34, 211, 238, .25);
+    }
+
+    .ci.c svg {
+      fill: var(--cyan);
+    }
+
+    .cl {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: -.02em;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .cbadge {
+      font-size: 9px;
+      color: var(--t2);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      background: var(--s3);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 3px 9px;
+    }
+
+    .cbadge.ai {
+      color: var(--violet);
+      background: rgba(155, 109, 255, .08);
+      border-color: rgba(155, 109, 255, .22);
+    }
+
+    .cbadge.new {
+      color: var(--green);
+      background: rgba(52, 211, 153, .08);
+      border-color: rgba(52, 211, 153, .22);
+    }
+
+    .cb {
+      padding: 20px 22px;
+    }
+
+    .cb p {
+      font-size: 13.5px;
+      color: var(--t2);
+      line-height: 1.85;
+      font-weight: 300;
+    }
+
+    /* ── APP MOCKUP ── */
+    .mockup-card {
+      background: linear-gradient(160deg, var(--s1) 0%, rgba(155, 109, 255, .04) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+      padding: 22px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .mh {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .mh-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13.5px;
+      color: var(--text);
+    }
+
+    .mh-sub {
+      font-size: 10.5px;
+      color: var(--t2);
+      font-weight: 300;
+      margin-top: 2px;
+    }
+
+    .mock-phone {
+      background: var(--s2);
+      border: 1px solid var(--border-hi);
+      border-radius: 20px;
+      padding: 14px 16px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mock-phone::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255, 255, 255, .025), transparent 40%);
+      pointer-events: none;
+    }
+
+    .mock-notch {
+      width: 60px;
+      height: 5px;
+      background: var(--s4);
+      border-radius: 0 0 6px 6px;
+      margin: 0 auto 13px;
+    }
+
+    .mock-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .mock-time {
+      font-family: 'Syne', sans-serif;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .mock-sig {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+
+    .mock-sig span {
+      border-radius: 50%;
+      display: block;
+    }
+
+    .ms1 {
+      width: 7px;
+      height: 7px;
+      background: var(--green);
+      box-shadow: 0 0 7px var(--green);
+      animation: pulse 2.4s ease infinite;
+    }
+
+    .ms2 {
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, .2);
+    }
+
+    .ms3 {
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, .1);
+    }
+
+    .mock-srch {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--s3);
+      border: 1px solid var(--border-hi);
+      border-radius: 10px;
+      padding: 9px 12px;
+      margin-bottom: 12px;
+    }
+
+    .mock-srch svg {
+      width: 13px;
+      height: 13px;
+      fill: var(--t3);
+      flex-shrink: 0;
+    }
+
+    .mock-srch span {
+      font-size: 11.5px;
+      color: var(--t3);
+      font-weight: 300;
+    }
+
+    .doc-row {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      background: var(--s3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 7px;
+      opacity: 0;
+      transform: translateX(-14px);
+    }
+
+    .doc-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .doc-row.anim {
+      animation: rowIn .6s cubic-bezier(.16, 1, .3, 1) forwards;
+    }
+
+    .doc-row:nth-child(1) {
+      animation-delay: .3s;
+    }
+
+    .doc-row:nth-child(2) {
+      animation-delay: .48s;
+    }
+
+    .doc-row:nth-child(3) {
+      animation-delay: .66s;
+    }
+
+    @keyframes rowIn {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .d-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .d-icon.a {
+      background: linear-gradient(135deg, rgba(232, 184, 109, .25), rgba(232, 184, 109, .08));
+      border: 1px solid rgba(232, 184, 109, .25);
+    }
+
+    .d-icon.b {
+      background: linear-gradient(135deg, rgba(155, 109, 255, .25), rgba(155, 109, 255, .08));
+      border: 1px solid rgba(155, 109, 255, .25);
+    }
+
+    .d-icon.c {
+      background: linear-gradient(135deg, rgba(52, 211, 153, .25), rgba(52, 211, 153, .08));
+      border: 1px solid rgba(52, 211, 153, .25);
+    }
+
+    .d-info {
+      flex: 1;
+    }
+
+    .d-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .d-meta {
+      font-size: 9.5px;
+      color: var(--t2);
+      font-weight: 300;
+    }
+
+    .d-lock {
+      width: 24px;
+      height: 24px;
+      border-radius: 7px;
+      background: var(--green-dim);
+      border: 1px solid rgba(52, 211, 153, .22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .d-lock svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--green);
+    }
+
+    /* ── FEATURE GRID ── */
+    .feat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .fi {
+      background: var(--s2);
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 16px;
+      transition: border-color .25s, background .25s, transform .25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .fi::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle, rgba(232, 184, 109, .06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .fi:hover {
+      border-color: rgba(232, 184, 109, .2);
+      background: var(--s3);
+      transform: translateY(-3px) scale(1.01);
+    }
+
+    .fi.ai-fi {
+      border-color: rgba(155, 109, 255, .15);
+    }
+
+    .fi.ai-fi::after {
+      background: radial-gradient(circle, rgba(155, 109, 255, .08), transparent 70%);
+    }
+
+    .fi.ai-fi:hover {
+      border-color: rgba(155, 109, 255, .35);
+    }
+
+    .fi.green-fi {
+      border-color: rgba(52, 211, 153, .1);
+    }
+
+    .fi.green-fi::after {
+      background: radial-gradient(circle, rgba(52, 211, 153, .07), transparent 70%);
+    }
+
+    .fi.green-fi:hover {
+      border-color: rgba(52, 211, 153, .32);
+    }
+
+    .fi-em {
+      font-size: 22px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .fi-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text);
+      display: block;
+      margin-bottom: 4px;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .fi-sub {
+      font-size: 10.5px;
+      color: var(--t2);
+      line-height: 1.45;
+      font-weight: 300;
+    }
+
+    .fi-tag {
+      display: inline-block;
+      font-size: 8.5px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      padding: 2px 8px;
+      margin-top: 6px;
+    }
+
+    .fi-tag.ai {
+      background: rgba(155, 109, 255, .12);
+      color: var(--violet);
+      border: 1px solid rgba(155, 109, 255, .22);
+    }
+
+    .fi-tag.new {
+      background: rgba(52, 211, 153, .1);
+      color: var(--green);
+      border: 1px solid rgba(52, 211, 153, .2);
+    }
+
+    .fi-tag.hot {
+      background: rgba(232, 184, 109, .1);
+      color: var(--gold);
+      border: 1px solid rgba(232, 184, 109, .22);
+    }
+
+    /* ── LUCKY AI ── */
+    .lucky-card {
+      background: linear-gradient(148deg, rgba(155, 109, 255, .07) 0%, var(--s1) 50%, rgba(232, 184, 109, .04) 100%);
+      border: 1px solid rgba(155, 109, 255, .22);
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .lucky-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(155, 109, 255, .05), transparent 55%);
+      pointer-events: none;
+    }
+
+    .lucky-glow {
+      position: absolute;
+      top: -90px;
+      right: -90px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(155, 109, 255, .12), transparent 65%);
+      pointer-events: none;
+      animation: luckypulse 4s ease-in-out infinite;
+    }
+
+    @keyframes luckypulse {
+
+      0%,
+      100% {
+        opacity: .55;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.12);
+      }
+    }
+
+    .lucky-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 22px 15px;
+      position: relative;
+    }
+
+    .lucky-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      flex-shrink: 0;
+      background: #0d0b1c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 24px rgba(155, 109, 255, .4), 0 6px 18px rgba(0, 0, 0, .45);
+      position: relative;
+      overflow: hidden;
+      animation: avatarglow 3s ease-in-out infinite;
+    }
+
+    @keyframes avatarglow {
+
+      0%,
+      100% {
+        box-shadow: 0 0 24px rgba(155, 109, 255, .4), 0 6px 18px rgba(0, 0, 0, .45);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(155, 109, 255, .65), 0 6px 18px rgba(0, 0, 0, .45);
+      }
+    }
+
+    .lucky-avatar::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, .12), transparent 55%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .lucky-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
+      position: relative;
+      z-index: 1;
+      display: block;
+    }
+
+    .lucky-info {
+      flex: 1;
+    }
+
+    .lucky-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--text);
+      margin-bottom: 3px;
+      letter-spacing: -.025em;
+    }
+
+    .lucky-role {
+      font-size: 11px;
+      color: var(--violet2);
+      font-weight: 400;
+    }
+
+    .lucky-online {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: var(--green);
+      font-weight: 500;
+      letter-spacing: .05em;
+    }
+
+    .lucky-online span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s ease infinite;
+    }
+
+    .lucky-chat {
+      padding: 0 22px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-bubble {
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-size: 13px;
+      line-height: 1.65;
+      font-weight: 300;
+      animation: bubbleIn .55s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    @keyframes bubbleIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px) scale(.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .chat-bubble.ai-msg {
+      background: rgba(155, 109, 255, .1);
+      border: 1px solid rgba(155, 109, 255, .2);
+      color: var(--text);
+      border-radius: 14px 14px 14px 4px;
+      animation-delay: .4s;
+    }
+
+    .chat-bubble.ai-msg2 {
+      animation-delay: .75s;
+    }
+
+    .chat-bubble.user-msg {
+      background: rgba(232, 184, 109, .09);
+      border: 1px solid rgba(232, 184, 109, .2);
+      color: var(--t2);
+      border-radius: 14px 14px 4px 14px;
+      align-self: flex-end;
+      max-width: 82%;
+      text-align: right;
+      animation-delay: .58s;
+    }
+
+    .ai-bubble-label {
+      font-size: 9px;
+      color: var(--violet2);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .user-bubble-label {
+      font-size: 9px;
+      color: var(--gold);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
+      text-align: right;
+    }
+
+    .lucky-caps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      padding: 0 22px 20px;
+    }
+
+    .lcap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(155, 109, 255, .07);
+      border: 1px solid rgba(155, 109, 255, .18);
+      border-radius: 9px;
+      padding: 6px 12px;
+      font-size: 11px;
+      color: var(--violet2);
+      font-weight: 500;
+      transition: background .22s, border-color .22s, transform .22s;
+      cursor: default;
+    }
+
+    .lcap:hover {
+      background: rgba(155, 109, 255, .16);
+      border-color: rgba(155, 109, 255, .35);
+      transform: translateY(-2px);
+    }
+
+    .lcap svg {
+      width: 12px;
+      height: 12px;
+      fill: var(--violet);
+    }
+
+    /* ── OCR CARD ── */
+    .ocr-demo {
+      background: var(--s2);
+      border: 1px solid var(--border-hi);
+      border-radius: 15px;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ocr-demo::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      animation: scanLine 2.8s ease-in-out infinite;
+    }
+
+    @keyframes scanLine {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: translateY(0);
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      80% {
+        opacity: 1;
+        transform: translateY(72px);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateY(72px);
+      }
+    }
+
+    .ocr-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .ocr-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+    }
+
+    .ocr-scan-badge {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(34, 211, 238, .08);
+      border: 1px solid rgba(34, 211, 238, .22);
+      border-radius: 7px;
+      padding: 3px 9px;
+      font-size: 9.5px;
+      color: var(--cyan);
+      font-weight: 600;
+      letter-spacing: .06em;
+      animation: scanpulse 1.8s ease infinite;
+    }
+
+    @keyframes scanpulse {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .45;
+      }
+    }
+
+    .ocr-doc-preview {
+      background: var(--s3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 13px;
+      margin-bottom: 11px;
+    }
+
+    .ocr-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ocr-line {
+      height: 7px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, .07);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ocr-line::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 4px;
+      animation: fillLine 2s cubic-bezier(.16, 1, .3, 1) forwards;
+    }
+
+    .ocr-line:nth-child(1) {
+      width: 78%;
+    }
+
+    .ocr-line:nth-child(1)::after {
+      background: linear-gradient(90deg, var(--cyan), rgba(34, 211, 238, .4));
+      animation-delay: .2s;
+    }
+
+    .ocr-line:nth-child(2) {
+      width: 58%;
+    }
+
+    .ocr-line:nth-child(2)::after {
+      background: linear-gradient(90deg, var(--gold), rgba(232, 184, 109, .4));
+      animation-delay: .5s;
+    }
+
+    .ocr-line:nth-child(3) {
+      width: 88%;
+    }
+
+    .ocr-line:nth-child(3)::after {
+      background: linear-gradient(90deg, var(--violet), rgba(155, 109, 255, .4));
+      animation-delay: .85s;
+    }
+
+    .ocr-line:nth-child(4) {
+      width: 44%;
+    }
+
+    .ocr-line:nth-child(4)::after {
+      background: linear-gradient(90deg, var(--green), rgba(52, 211, 153, .4));
+      animation-delay: 1.2s;
+    }
+
+    @keyframes fillLine {
+      from {
+        transform: scaleX(0);
+        transform-origin: left;
+      }
+
+      to {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+    }
+
+    .ocr-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    .ocr-field {
+      background: var(--s3);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 9px 11px;
+    }
+
+    .ocr-field-label {
+      font-size: 8.5px;
+      color: var(--t3);
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .ocr-field-val {
+      font-size: 11.5px;
+      color: var(--text);
+      font-weight: 500;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .ocr-field-val.typing::after {
+      content: '|';
+      animation: blink .7s step-end infinite;
+      color: var(--cyan);
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .ocr-field.filled {
+      border-color: rgba(34, 211, 238, .28);
+      background: rgba(34, 211, 238, .04);
+    }
+
+    .autofill-bar {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      background: linear-gradient(135deg, rgba(52, 211, 153, .08), rgba(52, 211, 153, .03));
+      border: 1px solid rgba(52, 211, 153, .22);
+      border-radius: 12px;
+      padding: 12px 15px;
+      margin-top: 11px;
+    }
+
+    .autofill-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: rgba(52, 211, 153, .12);
+      border: 1px solid rgba(52, 211, 153, .24);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .autofill-icon svg {
+      width: 15px;
+      height: 15px;
+      fill: var(--green);
+    }
+
+    .autofill-text {
+      flex: 1;
+    }
+
+    .autofill-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1px;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .autofill-sub {
+      font-size: 9.5px;
+      color: var(--t2);
+      font-weight: 300;
+    }
+
+    .autofill-tick {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 0 12px rgba(52, 211, 153, .5);
+      animation: tickpop .6s cubic-bezier(.16, 1, .3, 1) 1.9s both;
+    }
+
+    @keyframes tickpop {
+      from {
+        transform: scale(0) rotate(-30deg);
+      }
+
+      to {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    .autofill-tick svg {
+      width: 12px;
+      height: 12px;
+      fill: #fff;
+    }
+
+    /* ── BIOMETRIC ── */
+    .biometric-demo {
+      background: var(--s2);
+      border: 1px solid var(--border-hi);
+      border-radius: 15px;
+      padding: 17px;
+    }
+
+    .bio-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .bio-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+    }
+
+    .bio-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 9.5px;
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    .bio-status span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+    }
+
+    .bio-levels {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bio-level {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      background: var(--s3);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 13px;
+      transition: border-color .22s, transform .22s;
+    }
+
+    .bio-level:hover {
+      border-color: rgba(52, 211, 153, .25);
+      transform: translateX(3px);
+    }
+
+    .bio-level-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .bio-level-icon svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .bio-level-icon.app {
+      background: rgba(155, 109, 255, .1);
+      border: 1px solid rgba(155, 109, 255, .22);
+    }
+
+    .bio-level-icon.app svg {
+      fill: var(--violet);
+    }
+
+    .bio-level-icon.doc {
+      background: rgba(232, 184, 109, .1);
+      border: 1px solid rgba(232, 184, 109, .22);
+    }
+
+    .bio-level-icon.doc svg {
+      fill: var(--gold);
+    }
+
+    .bio-level-icon.cloud {
+      background: rgba(52, 211, 153, .1);
+      border: 1px solid rgba(52, 211, 153, .22);
+    }
+
+    .bio-level-icon.cloud svg {
+      fill: var(--green);
+    }
+
+    .bio-level-text {
+      flex: 1;
+    }
+
+    .bio-level-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 1px;
+    }
+
+    .bio-level-sub {
+      font-size: 9.5px;
+      color: var(--t2);
+      font-weight: 300;
+    }
+
+    .bio-toggle {
+      width: 34px;
+      height: 19px;
+      border-radius: 10px;
+      background: var(--green);
+      flex-shrink: 0;
+      position: relative;
+      box-shadow: 0 0 10px rgba(52, 211, 153, .35);
+    }
+
+    .bio-toggle::after {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #fff;
+      top: 2px;
+      right: 2px;
+      box-shadow: 0 1px 5px rgba(0, 0, 0, .35);
+    }
+
+    /* ── SCREENSHOT BLOCK ── */
+    .ss-demo {
+      background: var(--s2);
+      border: 1px solid var(--border-hi);
+      border-radius: 15px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 13px;
+    }
+
+    .ss-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: rgba(248, 113, 113, .1);
+      border: 1px solid rgba(248, 113, 113, .25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .ss-icon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(248, 113, 113, .1), transparent);
+      animation: ssflash 3s ease-in-out infinite;
+    }
+
+    @keyframes ssflash {
+
+      0%,
+      80%,
+      100% {
+        opacity: 0;
+      }
+
+      87%,
+      96% {
+        opacity: 1;
+      }
+    }
+
+    .ss-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: var(--red);
+      position: relative;
+      z-index: 1;
+    }
+
+    .ss-text {
+      flex: 1;
+    }
+
+    .ss-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      margin-bottom: 4px;
+    }
+
+    .ss-sub {
+      font-size: 10.5px;
+      color: var(--t2);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .ss-shield {
+      width: 38px;
+      height: 38px;
+      border-radius: 11px;
+      flex-shrink: 0;
+      background: rgba(248, 113, 113, .12);
+      border: 1px solid rgba(248, 113, 113, .24);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ss-shield svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--red);
+    }
+
+    /* ── SECURITY GRID ── */
+    .sec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .si {
+      background: var(--s2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 10px;
+      text-align: center;
+      transition: border-color .22s, background .22s, transform .22s;
+    }
+
+    .si:hover {
+      border-color: rgba(52, 211, 153, .25);
+      background: var(--s3);
+      transform: translateY(-3px);
+    }
+
+    .si-ico {
+      font-size: 24px;
+      margin-bottom: 7px;
+      display: block;
+    }
+
+    .si-title {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--text);
+      display: block;
+      margin-bottom: 3px;
+      font-family: 'Syne', sans-serif;
+    }
+
+    .si-sub {
+      font-size: 9.5px;
+      color: var(--t2);
+      font-weight: 300;
+      line-height: 1.35;
+    }
+
+    /* ── PREMIUM ── */
+    .plan-banner {
+      background: linear-gradient(142deg, rgba(232, 184, 109, .09), rgba(155, 109, 255, .06));
+      border: 1px solid rgba(232, 184, 109, .18);
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plan-banner::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, rgba(232, 184, 109, .1), transparent 70%);
+      pointer-events: none;
+    }
+
+    .pi {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(142deg, var(--gold2), #c8822e);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 6px 20px rgba(232, 184, 109, .3), inset 0 1px 0 rgba(255, 255, 255, .24);
+    }
+
+    .pi svg {
+      width: 22px;
+      height: 22px;
+      fill: #fff;
+    }
+
+    .pm {
+      flex: 1;
+    }
+
+    .pn {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .ps-plan {
+      font-size: 11.5px;
+      color: var(--t2);
+      font-weight: 300;
+    }
+
+    .pp {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 25px;
+      color: var(--gold);
+      letter-spacing: -.04em;
+    }
+
+    .pp span {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--t2);
+    }
+
+    .perk-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .perk {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-size: 13.5px;
+      color: var(--t2);
+      font-weight: 300;
+    }
+
+    .pck {
+      width: 20px;
+      height: 20px;
+      border-radius: 7px;
+      background: var(--green-dim);
+      border: 1px solid rgba(52, 211, 153, .24);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pck svg {
+      width: 11px;
+      height: 11px;
+      fill: var(--green);
+    }
+
+    .btn-upgrade {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--gold3), var(--gold) 50%, var(--gold2));
+      border: none;
+      border-radius: 14px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      color: #1a0e00;
+      letter-spacing: .03em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(232, 184, 109, .35), 0 2px 8px rgba(0, 0, 0, .4);
+      transition: transform .25s cubic-bezier(.16, 1, .3, 1), box-shadow .25s;
+    }
+
+    .btn-upgrade::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .22), transparent);
+      animation: sweep 2.5s ease-in-out infinite;
+    }
+
+    .btn-upgrade:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 12px 36px rgba(232, 184, 109, .5), 0 4px 12px rgba(0, 0, 0, .4);
+    }
+
+    .btn-upgrade:active {
+      transform: translateY(-1px);
+    }
+
+    @keyframes sweep {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .bsd {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 9px var(--gold);
+      animation: pulse 2s ease infinite;
+    }
+
+    /* ══════════════════════════════════════
+       FREE vs PRO COMPARISON TABLE
+    ══════════════════════════════════════ */
+    .comp-outer {
+      position: relative;
+    }
+
+    /* Animated gold border on the whole card when hovered */
+    .comp-card-wrap {
+      position: relative;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+    }
+
+    .comp-card-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--radius-card);
+      background: conic-gradient(from var(--comp-angle, 0deg), rgba(232, 184, 109, .0), rgba(232, 184, 109, .55), rgba(155, 109, 255, .4), rgba(52, 211, 153, .3), rgba(232, 184, 109, .0));
+      opacity: 0;
+      transition: opacity .4s;
+      z-index: 0;
+      animation: compBorderSpin 5s linear infinite;
+    }
+
+    @property --comp-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes compBorderSpin {
+      to {
+        --comp-angle: 360deg;
+      }
+    }
+
+    .comp-card-wrap:hover::before {
+      opacity: 1;
+    }
+
+    .comp-card-inner {
+      position: relative;
+      z-index: 1;
+      margin: 1.5px;
+      background: var(--s1);
+      border-radius: calc(var(--radius-card) - 1px);
+      overflow: hidden;
+    }
+
+    .comp-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1.2fr;
+      position: relative;
+    }
+
+    @media (max-width: 600px) {
+      .comp-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .comp-head-label {
+        display: none;
+      }
+
+      .comp-cell-label {
+        grid-column: span 2;
+        background: rgba(255, 255, 255, 0.05);
+        justify-content: center;
+        font-weight: 600;
+      }
+
+      .comp-section-label {
+        display: none;
+      }
+    }
+
+    [data-tip] {
+      position: relative;
+      cursor: help;
+    }
+
+    [data-tip]:hover::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(20, 16, 36, 0.95);
+      border: 1px solid var(--gold);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      white-space: nowrap;
+      z-index: 100;
+      pointer-events: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      animation: tipFade 0.2s forwards;
+    }
+
+    @keyframes tipFade {
+      from {
+        opacity: 0;
+        transform: translate(-50%, 5px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translate(-50%, -5px);
+      }
+    }
+
+    /* Column headers */
+    .comp-head-label,
+    .comp-head-free,
+    .comp-head-pro {
+      padding: 18px 14px 16px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comp-head-label {
+      background: transparent;
+      border-right: 1px solid var(--border);
+    }
+
+    .comp-head-free {
+      background: rgba(255, 255, 255, .016);
+      border-right: 1px solid var(--border);
+    }
+
+    .comp-head-pro {
+      background: linear-gradient(160deg, rgba(232, 184, 109, .09), rgba(232, 184, 109, .03));
+      position: relative;
+      overflow: hidden;
+      animation: proColGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes proColGlow {
+      from {
+        box-shadow: inset 0 0 0px rgba(232, 184, 109, 0.0);
+      }
+
+      to {
+        box-shadow: inset 0 0 40px rgba(232, 184, 109, 0.15);
+      }
+    }
+
+    .comp-head-pro::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(232, 184, 109, .18), transparent 70%);
+      pointer-events: none;
+      animation: proOrb 4s ease-in-out infinite;
+    }
+
+    @keyframes proOrb {
+
+      0%,
+      100% {
+        opacity: .6;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.15);
+      }
+    }
+
+    .comp-col-label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 13.5px;
+      letter-spacing: -.02em;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .comp-col-label.free-lbl {
+      color: var(--t2);
+    }
+
+    .comp-col-label.pro-lbl {
+      color: var(--gold);
+    }
+
+    .comp-price {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      letter-spacing: -.04em;
+      display: block;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .comp-price.free-price {
+      color: var(--text);
+    }
+
+    .comp-price.pro-price {
+      color: var(--gold);
+    }
+
+    .comp-price sub {
+      font-size: 10px;
+      font-weight: 400;
+      color: var(--t2);
+      vertical-align: middle;
+    }
+
+    .comp-pro-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: linear-gradient(135deg, var(--gold3), var(--gold));
+      color: #1a0e00;
+      font-family: 'Syne', sans-serif;
+      font-size: 7.5px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 6px;
+      padding: 3px 9px;
+      box-shadow: 0 3px 12px rgba(232, 184, 109, .35);
+      animation: badgePop 2.5s ease-in-out infinite;
+    }
+
+    @keyframes badgePop {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    .comp-pro-badge svg {
+      width: 8px;
+      height: 8px;
+      fill: currentColor;
+    }
+
+    /* Section divider rows */
+    .comp-section-label,
+    .comp-section-free,
+    .comp-section-pro {
+      padding: 7px 14px;
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, .014);
+    }
+
+    .comp-section-label {
+      color: var(--t3);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comp-section-free {
+      color: var(--t3);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .comp-section-pro {
+      color: rgba(232, 184, 109, .45);
+      background: rgba(232, 184, 109, .025);
+      border-bottom: 1px solid rgba(232, 184, 109, .12);
+    }
+
+    /* Feature rows */
+    .comp-cell-label,
+    .comp-cell-free,
+    .comp-cell-pro {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--border);
+      transition: background .2s;
+      position: relative;
+    }
+
+    .comp-cell-label {
+      border-right: 1px solid var(--border);
+      font-size: 12px;
+      color: #f1ecfc !important;
+      font-weight: 500;
+    }
+
+    .comp-cell-label svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--gold);
+      opacity: 0.8;
+      flex-shrink: 0;
+    }
+
+    .comp-cell-free {
+      border-right: 1px solid var(--border);
+      font-size: 11.5px;
+      color: #cbd5e1 !important;
+      font-weight: 400;
+    }
+
+    .comp-cell-pro {
+      background: rgba(232, 184, 109, .018);
+      font-size: 11.5px;
+      color: #f5c76b !important;
+      font-weight: 600;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .comp-cell-pro::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(232, 184, 109, 0.1), transparent);
+      animation: scanGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes scanGlow {
+      0% {
+        left: -100%;
+      }
+
+      50% {
+        left: 150%;
+      }
+
+      100% {
+        left: 150%;
+      }
+    }
+
+    /* Check / Cross icons */
+    .c-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      margin-right: 4px;
+      fill: currentColor;
+    }
+
+    .c-icon.yes {
+      fill: var(--green);
+      filter: drop-shadow(0 0 4px var(--green));
+    }
+
+    .c-icon.no {
+      stroke: var(--red);
+      fill: none;
+      opacity: 0.7;
+    }
+
+    .c-icon.gold-check {
+      fill: var(--gold);
+      filter: drop-shadow(0 0 6px var(--gold));
+    }
+
+    .faded-text {
+      opacity: 0.6;
+      color: #888 !important;
+    }
+
+    /* Section labels (STORAGE, AI, etc.) */
+    .comp-section-label {
+      color: #f5c76b !important;
+      font-weight: 600;
+    }
+
+    /* Hover highlight pairs */
+    .comp-cell-label.row-hover,
+    .comp-cell-free.row-hover {
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .comp-cell-pro.row-hover {
+      background: rgba(232, 184, 109, .08);
+    }
+
+    /* Row hover effect */
+    .comp-row-pair:hover>div {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .comp-row-pair:hover>.comp-cell-pro {
+      background: rgba(232, 184, 109, .06);
+    }
+
+    /* Last row: no bottom border */
+    .comp-last {
+      border-bottom: none !important;
+    }
+
+    /* Row stagger animation */
+    .comp-row-pair {
+      display: contents;
+    }
+
+    .comp-row-pair>div {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity .5s cubic-bezier(.16, 1, .3, 1), transform .5s cubic-bezier(.16, 1, .3, 1), background .2s;
+    }
+
+    .comp-row-pair.revealed>div {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      visibility: visible !important;
+    }
+
+    /* CTA at bottom of comparison */
+    .comp-cta-wrap {
+      padding: 16px 22px 0;
+    }
+
+    /* ── LEGAL LINKS ── */
+    .ll {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: padding-left .25s;
+    }
+
+    .ll:last-child {
+      border-bottom: none;
+    }
+
+    .ll:hover {
+      padding-left: 6px;
+    }
+
+    .ll-l {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .ll-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ll-dot svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .ll-dot.lp {
+      background: rgba(155, 109, 255, .1);
+      border: 1px solid rgba(155, 109, 255, .22);
+    }
+
+    .ll-dot.lp svg {
+      fill: var(--violet);
+    }
+
+    .ll-dot.lt {
+      background: rgba(232, 184, 109, .08);
+      border: 1px solid rgba(232, 184, 109, .2);
+    }
+
+    .ll-dot.lt svg {
+      fill: var(--gold);
+    }
+
+    .ll-dot.ld {
+      background: rgba(248, 113, 113, .08);
+      border: 1px solid rgba(248, 113, 113, .2);
+    }
+
+    .ll-dot.ld svg {
+      fill: var(--red);
+    }
+
+    .ll-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .ll-t {
+      font-size: 13.5px;
+      color: var(--text);
+      font-weight: 500;
+      transition: color .22s;
+    }
+
+    .ll-sub {
+      font-size: 10px;
+      color: var(--t2);
+      font-weight: 300;
+    }
+
+    .ll:hover .ll-t {
+      color: var(--gold);
+    }
+
+    .ll-arr {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      background: var(--s3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .22s, border-color .22s, transform .22s;
+      flex-shrink: 0;
+    }
+
+    .ll:hover .ll-arr {
+      background: var(--s4);
+      border-color: rgba(232, 184, 109, .25);
+      transform: translateX(3px);
+    }
+
+    .ll-arr svg {
+      width: 13px;
+      height: 13px;
+      fill: var(--t2);
+    }
+
+    /* ── DEVELOPER ── */
+    .dr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .dr:last-child {
+      border-bottom: none;
+    }
+
+    .dk {
+      font-size: 10px;
+      color: var(--t3);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .dv {
+      font-size: 13.5px;
+      color: var(--t2);
+      font-weight: 400;
+    }
+
+    .dv a {
+      color: var(--gold);
+      text-decoration: none;
+      transition: opacity .22s;
+    }
+
+    .dv a:hover {
+      opacity: .72;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 32px 0 0;
+      font-size: 11px;
+      color: var(--t3);
+      letter-spacing: .06em;
+      line-height: 2.8;
+    }
+
+    footer a {
+      color: var(--t3);
+      text-decoration: none;
+      margin: 0 7px;
+      transition: color .22s;
+    }
+
+    footer a:hover {
+      color: var(--gold);
+    }
+
+    .fsep {
+      opacity: .3;
+    }
+
+    /* Instagram footer link */
+    .footer-insta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--t3);
+      text-decoration: none;
+      margin: 0 7px;
+      transition: color .25s, transform .25s;
+      vertical-align: middle;
+    }
+
+    .footer-insta:hover {
+      color: #e1306c;
+      transform: translateY(-1px);
+    }
+
+    .footer-insta svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      transition: filter .25s;
+    }
+
+    .footer-insta:hover svg {
+      filter: drop-shadow(0 0 5px rgba(225, 48, 108, .6));
+    }
+
+    .footer-insta-row {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      font-size: 10.5px;
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      animation: cardReveal .7s cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    @keyframes cardReveal {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal:nth-child(1) {
+      animation-delay: .05s
+    }
+
+    .reveal:nth-child(2) {
+      animation-delay: .12s
+    }
+
+    .reveal:nth-child(3) {
+      animation-delay: .19s
+    }
+
+    .reveal:nth-child(4) {
+      animation-delay: .26s
+    }
+
+    .reveal:nth-child(5) {
+      animation-delay: .33s
+    }
+
+    .reveal:nth-child(6) {
+      animation-delay: .40s
+    }
+
+    .reveal:nth-child(7) {
+      animation-delay: .47s
+    }
+
+    .reveal:nth-child(8) {
+      animation-delay: .54s
+    }
+
+    .reveal:nth-child(9) {
+      animation-delay: .61s
+    }
+
+    /* ── ANIMATED GRADIENT BORDER CARDS ── */
+    .glow-card {
+      position: relative;
+    }
+
+    .glow-card::after {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: calc(var(--radius-card) + 1px);
+      background: linear-gradient(var(--border-angle, 0deg), var(--violet), var(--gold), var(--green), var(--violet));
+      z-index: -1;
+      opacity: 0;
+      transition: opacity .4s;
+    }
+
+    .glow-card:hover::after {
+      opacity: .35;
+    }
+
+    @keyframes rippleOut {
+      to {
+        transform: scale(3);
+        opacity: 0;
+      }
+    }
+
+    /* ── HOW IT WORKS ── */
+    .hiw-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hiw-steps::before {
+      content: '';
+      position: absolute;
+      left: 23px;
+      top: 38px;
+      bottom: 38px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--gold), var(--violet), var(--green));
+      border-radius: 2px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .hiw-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 14px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hiw-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--s1);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+      transition: transform .3s cubic-bezier(.16, 1, .3, 1), box-shadow .3s;
+    }
+
+    .hiw-step:hover .hiw-num {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .hiw-num.n1 {
+      background-image: linear-gradient(135deg, rgba(232, 184, 109, .2), rgba(232, 184, 109, .08));
+      border: 1px solid rgba(232, 184, 109, .3);
+      color: var(--gold);
+    }
+
+    .hiw-num.n2 {
+      background-image: linear-gradient(135deg, rgba(155, 109, 255, .2), rgba(155, 109, 255, .08));
+      border: 1px solid rgba(155, 109, 255, .3);
+      color: var(--violet);
+    }
+
+    .hiw-num.n3 {
+      background-image: linear-gradient(135deg, rgba(52, 211, 153, .2), rgba(52, 211, 153, .08));
+      border: 1px solid rgba(52, 211, 153, .3);
+      color: var(--green);
+    }
+
+    .hiw-num.n4 {
+      background-image: linear-gradient(135deg, rgba(96, 165, 250, .2), rgba(96, 165, 250, .08));
+      border: 1px solid rgba(96, 165, 250, .3);
+      color: var(--blue);
+    }
+
+    .hiw-content {
+      flex: 1;
+      min-width: 0;
+      padding-top: 4px;
+    }
+
+    .hiw-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text);
+      margin-bottom: 4px;
+      letter-spacing: -.02em;
+    }
+
+    .hiw-desc {
+      font-size: 12.5px;
+      color: var(--t2);
+      line-height: 1.65;
+      font-weight: 300;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testi-slider {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testi-track {
+      display: flex;
+      transition: transform .5s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .testi-card {
+      min-width: 100%;
+      padding: 22px;
+      background: var(--s2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .testi-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      right: 16px;
+      font-size: 120px;
+      font-family: 'Syne', serif;
+      color: rgba(232, 184, 109, .06);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .testi-stars {
+      display: flex;
+      gap: 3px;
+      margin-bottom: 12px;
+    }
+
+    .testi-stars svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--gold);
+    }
+
+    .testi-text {
+      font-size: 13.5px;
+      color: var(--t2);
+      line-height: 1.78;
+      font-weight: 300;
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testi-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .testi-avatar.t1 {
+      background: linear-gradient(135deg, rgba(232, 184, 109, .25), rgba(232, 184, 109, .08));
+      color: var(--gold);
+      border: 1px solid rgba(232, 184, 109, .3);
+    }
+
+    .testi-avatar.t2 {
+      background: linear-gradient(135deg, rgba(155, 109, 255, .25), rgba(155, 109, 255, .08));
+      color: var(--violet);
+      border: 1px solid rgba(155, 109, 255, .3);
+    }
+
+    .testi-avatar.t3 {
+      background: linear-gradient(135deg, rgba(52, 211, 153, .25), rgba(52, 211, 153, .08));
+      color: var(--green);
+      border: 1px solid rgba(52, 211, 153, .3);
+    }
+
+    .testi-avatar.t4 {
+      background: linear-gradient(135deg, rgba(96, 165, 250, .25), rgba(96, 165, 250, .08));
+      color: var(--blue);
+      border: 1px solid rgba(96, 165, 250, .3);
+    }
+
+    .testi-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .testi-role {
+      font-size: 10.5px;
+      color: var(--t2);
+      font-weight: 300;
+    }
+
+    .testi-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .testi-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--s4);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: background .25s, border-color .25s, transform .25s;
+    }
+
+    .testi-dot.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      transform: scale(1.3);
+      box-shadow: 0 0 8px rgba(232, 184, 109, .4);
+    }
+
+    .testi-nav {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .testi-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: var(--s3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .22s, border-color .22s, transform .22s;
+    }
+
+    .testi-btn:hover {
+      background: var(--s4);
+      border-color: rgba(232, 184, 109, .3);
+      transform: translateY(-2px);
+    }
+
+    .testi-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--t2);
+    }
+
+    /* ── BACK TO TOP ── */
+    .btt {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 998;
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gold3), var(--gold));
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(232, 184, 109, .35), 0 2px 8px rgba(0, 0, 0, .4);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(20px);
+      transition: opacity .35s, transform .35s cubic-bezier(.16, 1, .3, 1), box-shadow .25s;
+    }
+
+    .btt.visible {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+    }
+
+    .btt:hover {
+      box-shadow: 0 10px 32px rgba(232, 184, 109, .55), 0 4px 12px rgba(0, 0, 0, .4);
+      transform: translateY(-3px);
+    }
+
+    .btt svg {
+      width: 20px;
+      height: 20px;
+      fill: #1a0e00;
+    }
+
+    /* ── SCROLL REVEAL (observer) ── */
+    .sr {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s cubic-bezier(.16, 1, .3, 1), transform .7s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .sr.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── FLOATING LABELS BADGE ── */
+    .float-badge {
+      position: absolute;
+      right: -8px;
+      top: -8px;
+      background: linear-gradient(135deg, var(--green), rgba(52, 211, 153, .7));
+      color: #000;
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      border-radius: 7px;
+      padding: 3px 8px;
+      box-shadow: 0 4px 12px rgba(52, 211, 153, .35);
+      animation: floatBadge 2.5s ease-in-out infinite;
+    }
+
+    @keyframes floatBadge {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    /* ── TYPING INDICATOR ── */
+    .typing-dots {
+      display: inline-flex;
+      gap: 4px;
+      align-items: center;
+      padding: 11px 16px;
+    }
+
+    .typing-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--violet2);
+      animation: dotBounce 1.4s ease-in-out infinite;
+    }
+
+    .typing-dots span:nth-child(2) {
+      animation-delay: .2s;
+    }
+
+    .typing-dots span:nth-child(3) {
+      animation-delay: .4s;
+    }
+
+    @keyframes dotBounce {
+
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+      }
+
+      30% {
+        transform: translateY(-6px);
+      }
+    }
+
+    /* Shimmer loading bar */
+    .shimmer-bar {
+      height: 3px;
+      border-radius: 2px;
+      overflow: hidden;
+      background: var(--s3);
+      margin-top: 14px;
+    }
+
+    .shimmer-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, var(--violet), var(--gold), var(--green));
+      background-size: 200% 100%;
+      animation: shimmerBar 2s ease-in-out infinite;
+      width: 70%;
+    }
+
+    @keyframes shimmerBar {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    /* ── MOBILE RESPONSIVE ── */
+    @media (max-width: 400px) {
+      .play-btn {
+        gap: 10px;
+        padding: 12px 13px;
+      }
+
+      .ps-icon-box {
+        width: 40px;
+        height: 40px;
+        border-radius: 11px;
+      }
+
+      .ps-icon-box svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .play-main-txt {
+        font-size: 15px;
+      }
+
+      .play-stars svg {
+        width: 9px;
+        height: 9px;
+      }
+
+      .play-dl {
+        padding: 4px 8px;
+        font-size: 9px;
+      }
+
+      .stat {
+        padding: 11px 4px;
+      }
+
+      .stat-n {
+        font-size: 13px;
+      }
+
+      .stat-l {
+        font-size: 6.5px;
+        letter-spacing: .03em;
+      }
+
+      h1 {
+        font-size: 26px;
+      }
+
+      .page {
+        padding: 0 16px 90px;
+      }
+
+      .cell-text {
+        font-size: 10.5px;
+      }
+
+      .comp-price {
+        font-size: 17px;
+      }
+    }
+
+    /* ══════════════════════════════════════
+       HAMBURGER MENU — 2026 STYLE
+    ══════════════════════════════════════ */
+    .ham-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      background: var(--s2);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      flex-shrink: 0;
+      z-index: 1001;
+      position: relative;
+      transition: background .25s, border-color .25s, transform .25s;
+    }
+
+    .ham-btn:hover {
+      background: var(--s3);
+      border-color: rgba(232, 184, 109, .28);
+      transform: scale(1.06);
+    }
+
+    .ham-btn.open {
+      background: var(--s3);
+      border-color: rgba(232, 184, 109, .35);
+    }
+
+    .ham-line {
+      width: 18px;
+      height: 1.8px;
+      border-radius: 2px;
+      background: var(--text);
+      transition: transform .35s cubic-bezier(.16, 1, .3, 1), opacity .25s, width .3s;
+      transform-origin: center;
+    }
+
+    .ham-btn.open .ham-line:nth-child(1) {
+      transform: translateY(6.8px) rotate(45deg);
+    }
+
+    .ham-btn.open .ham-line:nth-child(2) {
+      opacity: 0;
+      width: 0;
+    }
+
+    .ham-btn.open .ham-line:nth-child(3) {
+      transform: translateY(-6.8px) rotate(-45deg);
+    }
+
+    .menu-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: rgba(3, 2, 10, .7);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+
+    .menu-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .menu-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(300px, 82vw);
+      background: linear-gradient(160deg, var(--s1) 0%, rgba(155, 109, 255, .04) 100%);
+      border-left: 1px solid var(--border);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(110%);
+      transition: transform .42s cubic-bezier(.16, 1, .3, 1);
+      overflow: hidden;
+    }
+
+    .menu-drawer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(255, 255, 255, .022), transparent 55%);
+      pointer-events: none;
+    }
+
+    .menu-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-orb {
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(155, 109, 255, .12), transparent 65%);
+      pointer-events: none;
+      animation: luckypulse 4s ease-in-out infinite;
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 22px 20px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .drawer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .drawer-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 0 14px rgba(155, 109, 255, .35);
+    }
+
+    .drawer-logo-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: -.035em;
+      color: var(--text);
+    }
+
+    .drawer-logo-name em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .drawer-close {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: var(--s3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s, border-color .2s;
+    }
+
+    .drawer-close:hover {
+      background: var(--s4);
+      border-color: rgba(248, 113, 113, .3);
+    }
+
+    .drawer-close svg {
+      width: 14px;
+      height: 14px;
+      fill: var(--t2);
+    }
+
+    .drawer-nav {
+      flex: 1;
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+      z-index: 1;
+      overflow-y: auto;
+    }
+
+    .drawer-section-label {
+      font-size: 8.5px;
+      color: var(--t3);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 12px 8px 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .drawer-section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--t3), transparent);
+    }
+
+    .drawer-link {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 12px 14px;
+      border-radius: 13px;
+      text-decoration: none;
+      transition: background .22s, transform .22s, border-color .22s;
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .drawer-link:hover {
+      background: var(--s2);
+      border-color: var(--border);
+      transform: translateX(4px);
+    }
+
+    .drawer-link::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2px;
+      height: 0;
+      border-radius: 2px;
+      transition: height .25s cubic-bezier(.16, 1, .3, 1);
+    }
+
+    .drawer-link:hover::before {
+      height: 60%;
+    }
+
+    .drawer-link.gold::before {
+      background: var(--gold);
+    }
+
+    .drawer-link.violet::before {
+      background: var(--violet);
+    }
+
+    .drawer-link.red::before {
+      background: var(--red);
+    }
+
+    .drawer-link.green::before {
+      background: var(--green);
+    }
+
+    .dl-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .dl-icon svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    .dl-icon.gold {
+      background: rgba(232, 184, 109, .1);
+      border: 1px solid rgba(232, 184, 109, .2);
+    }
+
+    .dl-icon.gold svg {
+      fill: var(--gold);
+    }
+
+    .dl-icon.violet {
+      background: rgba(155, 109, 255, .1);
+      border: 1px solid rgba(155, 109, 255, .2);
+    }
+
+    .dl-icon.violet svg {
+      fill: var(--violet);
+    }
+
+    .dl-icon.red {
+      background: rgba(248, 113, 113, .1);
+      border: 1px solid rgba(248, 113, 113, .2);
+    }
+
+    .dl-icon.red svg {
+      fill: var(--red);
+    }
+
+    .dl-icon.green {
+      background: rgba(52, 211, 153, .1);
+      border: 1px solid rgba(52, 211, 153, .2);
+    }
+
+    .dl-icon.green svg {
+      fill: var(--green);
+    }
+
+    .dl-text {
+      flex: 1;
+    }
+
+    .dl-title {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .dl-sub {
+      font-size: 10px;
+      color: var(--t2);
+      font-weight: 300;
+    }
+
+    .dl-arrow {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      background: var(--s3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background .2s, border-color .2s;
+    }
+
+    .drawer-link:hover .dl-arrow {
+      background: var(--s4);
+    }
+
+    .dl-arrow svg {
+      width: 11px;
+      height: 11px;
+      fill: var(--t2);
+    }
+
+    .drawer-footer {
+      padding: 10px 14px 14px;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .drawer-download-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 10px 14px;
+      background: linear-gradient(135deg, var(--gold3), var(--gold) 50%, var(--gold2));
+      border: none;
+      border-radius: 11px;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      color: #1a0e00;
+      letter-spacing: .02em;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(232, 184, 109, .28);
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .drawer-download-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .2), transparent);
+      animation: sweep 2.5s ease-in-out infinite;
+    }
+
+    .drawer-download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(232, 184, 109, .42);
+    }
+
+    .drawer-download-btn svg {
+      width: 14px;
+      height: 14px;
+      flex-shrink: 0;
+    }
+
+    .drawer-link {
+      opacity: 0;
+      transform: translateX(20px);
+      transition: background .22s, transform .22s, border-color .22s, opacity .35s;
+    }
+
+    .menu-drawer.open .drawer-link {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .menu-drawer.open .drawer-link:nth-child(1) {
+      transition-delay: .08s;
+    }
+
+    .menu-drawer.open .drawer-link:nth-child(2) {
+      transition-delay: .14s;
+    }
+
+    .menu-drawer.open .drawer-link:nth-child(3) {
+      transition-delay: .20s;
+    }
+
+    .menu-drawer.open .drawer-link:nth-child(4) {
+      transition-delay: .26s;
+    }
+
+    .menu-drawer.open .drawer-link:nth-child(5) {
+      transition-delay: .32s;
+    }
+
+    /* Mobile Tactile */
+    .cta-btn:active,
+    .back-btn:active,
+    .card:active,
+    .drawer-link:active,
+    .drawer-download-btn:active,
+    .accordion-btn:active,
+    .gem:active,
+    .hiw-num:active {
+      transform: scale(0.96) !important;
+      transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+
+    #pb {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #pb.loaded {
+      opacity: 0;
+    }
+
+    /* Sticky Bottom CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: -100px;
+      left: 0;
+      right: 0;
+      padding: 16px 20px;
+      z-index: 995;
+      transition: bottom 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .sticky-cta.visible {
+      bottom: 0;
+      pointer-events: auto;
+    }
+
+    .sticky-cta-content {
+      max-width: 430px;
+      margin: 0 auto;
+      background: rgba(13, 11, 28, 0.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .sticky-cta-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sticky-cta-text strong {
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #f1ecfc;
+    }
+
+    .sticky-cta-text span {
+      font-size: 11px;
+      color: #8b80a8;
+      font-weight: 300;
+    }
+
+    .sticky-cta-btn {
+      background: linear-gradient(135deg, #e8b86d, #d4932e);
+      color: #131126;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(232, 184, 109, 0.25);
+      transition: transform 0.2s;
+    }
+
+    .sticky-cta-btn:active {
+      transform: scale(0.95);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="pb"></div>
+
+  <canvas id="particles"></canvas>
+
+  <div class="bg-wrap">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="orb orb-c"></div>
+    <div class="orb orb-d"></div>
+    <div class="orb orb-e"></div>
+  </div>
+  <div class="grid-bg"></div>
+
+  <div id="cursor"></div>
+  <div id="cursor-ring"></div>
+
+  <div class="page">
+
+    <div class="menu-backdrop" id="menuBackdrop"></div>
+
+    <!-- MENU DRAWER -->
+    <div class="menu-drawer" id="menuDrawer">
+      <div class="drawer-orb"></div>
+      <div class="drawer-header">
+        <a href="index.html" class="drawer-logo">
+          <img src="https://raw.githubusercontent.com/lakhanpatil99/Locklet-pro/main/applogos.png" alt="Locklet Pro" />
+          <span class="drawer-logo-name">Locklet<em> Pro</em></span>
+        </a>
+        <div class="drawer-close" id="drawerClose">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" />
+          </svg>
+        </div>
+      </div>
+      <div class="drawer-nav">
+        <div class="drawer-section-label">App</div>
+        <a href="https://play.google.com/store/apps/details?id=com.lockletpro" target="_blank" class="drawer-link green">
+          <div class="dl-icon green"><svg viewBox="0 0 24 24">
+              <path d="M5 3l14 9-14 9V3z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">Download App</span><span class="dl-sub">Get it on Google
+              Play</span></div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <div class="drawer-section-label">Explore</div>
+        <a href="features.html" class="drawer-link gold">
+          <div class="dl-icon gold"><svg viewBox="0 0 24 24">
+              <path d="M12 1l2.5 7.5H22l-6.5 4.7 2.5 7.5L12 16.3 6 20.7l2.5-7.5L2 8.5h7.5z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">Features</span><span class="dl-sub">Explore all
+              capabilities</span></div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <a href="about.html" class="drawer-link violet">
+          <div class="dl-icon violet"><svg viewBox="0 0 24 24">
+              <path
+                d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">About</span><span class="dl-sub">Our story &amp; mission</span>
+          </div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <a href="faq.html" class="drawer-link green">
+          <div class="dl-icon green"><svg viewBox="0 0 24 24">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">FAQ</span><span class="dl-sub">Common questions answered</span>
+          </div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <a href="contact.html" class="drawer-link gold">
+          <div class="dl-icon gold"><svg viewBox="0 0 24 24">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">Contact</span><span class="dl-sub">Get in touch with us</span>
+          </div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <div class="drawer-section-label">Account</div>
+        <a href="edit-account.html" class="drawer-link gold">
+          <div class="dl-icon gold"><svg viewBox="0 0 24 24">
+              <path
+                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">Edit Account</span><span class="dl-sub">Profile &amp;
+              settings</span></div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <a href="delete-account.html" class="drawer-link red">
+          <div class="dl-icon red"><svg viewBox="0 0 24 24">
+              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">Delete Account</span><span class="dl-sub">Permanently remove your
+              data</span></div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <div class="drawer-section-label">Legal</div>
+        <a href="privacy.html" class="drawer-link violet">
+          <div class="dl-icon violet"><svg viewBox="0 0 24 24">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">Privacy Policy</span><span class="dl-sub">How we handle your
+              data</span></div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <a href="terms.html" class="drawer-link gold">
+          <div class="dl-icon gold"><svg viewBox="0 0 24 24">
+              <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">Terms &amp; Conditions</span><span class="dl-sub">Rules for using
+              Locklet Pro</span></div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+
+        <a href="refund.html" class="drawer-link violet">
+          <div class="dl-icon violet"><svg viewBox="0 0 24 24">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+            </svg></div>
+          <div class="dl-text"><span class="dl-title">Refund Policy</span><span class="dl-sub">Refund Your Subscription </span></div>
+          <div class="dl-arrow"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+
+        
+      </div>
+      <div class="drawer-footer">
+        <a href="https://play.google.com/store/apps/details?id=com.lockletpro" target="_blank" class="drawer-download-btn">
+          <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <path d="M48 421.3V90.7c0-13.5 14.6-21.9 26.3-15.1L416 256 74.3 436.4C62.6 443.2 48 434.8 48 421.3z"
+              fill="#4285F4" />
+            <path d="M416 256 74.3 75.6 262 201.4z" fill="#EA4335" />
+            <path d="M416 256 262 310.6 74.3 436.4z" fill="#FBBC04" />
+            <path d="M262 201.4 416 256 262 310.6z" fill="#34A853" />
+          </svg>
+          Download on Google Play
+        </a>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+      <a href="index.html" class="nav-logo">
+        <div class="real-logo-wrap">
+          <img src="https://raw.githubusercontent.com/lakhanpatil99/Locklet-pro/main/applogos.png" alt="Locklet Pro"
+            class="real-logo" />
+        </div>
+        <span class="logo-name">Locklet<em> Pro</em></span>
+      </a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="status-pill">
+          <div class="pulse-dot"></div>Secure
+        </div>
+        <button class="ham-btn" id="hamBtn" aria-label="Open menu">
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+          <span class="ham-line"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="eyebrow">
+        <div class="eyebrow-icon"><svg viewBox="0 0 24 24">
+            <path
+              d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
+          </svg></div>
+        AI-Powered Document Vault
+      </div>
+      <h1>Your documents<br /><span class="grad">locked &amp; smart.</span></h1>
+      <p class="hero-desc">Military-grade biometric security meets AI intelligence. OCR scanning, auto-fill,
+        per-document locks, and your own AI assistant — all in one beautiful vault.</p>
+
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-n" data-count="256">0</span>
+          <span class="stat-l">AES-Bit</span>
+        </div>
+        <div class="stat">
+          <span class="stat-n">OCR</span>
+          <span class="stat-l">AI Scan</span>
+        </div>
+        <div class="stat">
+          <span class="stat-n">0ms</span>
+          <span class="stat-l">Breach Risk</span>
+        </div>
+        <div class="stat">
+          <span class="stat-n">∞</span>
+          <span class="stat-l">Docs</span>
+        </div>
+      </div>
+
+      <div class="play-wrap">
+        <a class="play-btn" href="https://play.google.com/store/apps/details?id=com.lockletpro" target="_blank" rel="noopener">
+          <div class="ps-icon-box">
+            <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+              <path d="M48 421.3V90.7c0-13.5 14.6-21.9 26.3-15.1L416 256 74.3 436.4C62.6 443.2 48 434.8 48 421.3z"
+                fill="#4285F4" />
+              <path d="M416 256 74.3 75.6 262 201.4z" fill="#EA4335" />
+              <path d="M416 256 262 310.6 74.3 436.4z" fill="#FBBC04" />
+              <path d="M262 201.4 416 256 262 310.6z" fill="#34A853" />
+            </svg>
+          </div>
+          <div class="play-mid">
+            <div class="play-sub-txt">Get it on</div>
+            <div class="play-main-txt">Google Play</div>
+          </div>
+          <div class="play-right">
+            <div class="play-stars">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+            </div>
+            <div class="play-dl">
+              Download
+              <svg viewBox="0 0 24 24">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+              </svg>
+            </div>
+          </div>
+        </a>
+        <a class="play-btn ocr-btn" href="tryocr.html" rel="noopener" style="margin-top: 12px; border-color: rgba(34, 211, 238, .28);">
+          <div class="ps-icon-box" style="background: linear-gradient(150deg, rgba(34, 211, 238, .1), rgba(34, 211, 238, .03)); border-color: rgba(34, 211, 238, .13);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:20px; height:20px; z-index:1;">
+              <path d="M4 4h16v16H4z"/>
+              <path d="M8 8h8M8 12h8M8 16h4"/>
+            </svg>
+          </div>
+          <div class="play-mid">
+            <div class="play-sub-txt" style="color:var(--cyan);">AI Feature</div>
+            <div class="play-main-txt">Try OCR Now</div>
+          </div>
+          <div class="play-right">
+            <div class="play-dl" style="background: rgba(34, 211, 238, .13); border-color: rgba(34, 211, 238, .3); color: var(--cyan);">
+              Launch
+              <svg viewBox="0 0 24 24" style="fill: var(--cyan);">
+                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+              </svg>
+            </div>
+          </div>
+        </a>
+        <div class="test-badge">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+          </svg>
+          Early Access · Currently in Testing Phase
+        </div>
+      </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="sl">How It Works</div>
+    <div class="card sr">
+      <div class="ct">
+        <div class="ci g"><svg viewBox="0 0 24 24">
+            <path
+              d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
+          </svg></div>
+        <span class="cl">Get Started in 4 Steps</span>
+        <span class="cbadge new">Easy</span>
+      </div>
+      <div class="cb">
+        <div class="hiw-steps">
+          <div class="hiw-step">
+            <div class="hiw-num n1">1</div>
+            <div class="hiw-content">
+              <div class="hiw-title">Download &amp; Install</div>
+              <div class="hiw-desc">Get Locklet Pro from Google Play Store. Set up your account with email or Google
+                sign-in in seconds.</div>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num n2">2</div>
+            <div class="hiw-content">
+              <div class="hiw-title">Enable Biometric Lock</div>
+              <div class="hiw-desc">Secure your vault with fingerprint or face recognition. Choose app-level or
+                per-document locks.</div>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num n3">3</div>
+            <div class="hiw-content">
+              <div class="hiw-title">Scan &amp; Store Documents</div>
+              <div class="hiw-desc">Use AI-powered OCR to scan Aadhaar, PAN, Driving License and more. Lucky auto-fills
+                all your details.</div>
+            </div>
+          </div>
+          <div class="hiw-step">
+            <div class="hiw-num n4">4</div>
+            <div class="hiw-content">
+              <div class="hiw-title">Access Anywhere</div>
+              <div class="hiw-desc">Sync to cloud or access offline. Your documents are encrypted, safe, and always
+                available.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APP MOCKUP -->
+    <div class="mockup-card reveal glow-card">
+      <div class="mh">
+        <div>
+          <div class="mh-title">App Preview</div>
+          <div class="mh-sub">Your secure document vault</div>
+        </div>
+        <span class="cbadge new">Live UI</span>
+      </div>
+      <div class="mock-phone">
+        <div class="mock-notch"></div>
+        <div class="mock-bar">
+          <span class="mock-time">9:41</span>
+          <div class="mock-sig"><span class="ms1"></span><span class="ms2"></span><span class="ms3"></span></div>
+        </div>
+        <div class="mock-srch">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+          </svg>
+          <span>Search documents…</span>
+        </div>
+        <div class="doc-row anim">
+          <div class="d-icon a">🪪</div>
+          <div class="d-info">
+            <div class="d-name">Aadhaar Card</div>
+            <div class="d-meta">2 days ago · 1.2 MB</div>
+          </div>
+          <div class="d-lock"><svg viewBox="0 0 24 24">
+              <path
+                d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
+            </svg></div>
+        </div>
+        <div class="doc-row anim">
+          <div class="d-icon b">🪙</div>
+          <div class="d-info">
+            <div class="d-name">PAN Card</div>
+            <div class="d-meta">5 days ago · 0.8 MB</div>
+          </div>
+          <div class="d-lock"><svg viewBox="0 0 24 24">
+              <path
+                d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
+            </svg></div>
+        </div>
+        <div class="doc-row anim">
+          <div class="d-icon c">🚗</div>
+          <div class="d-info">
+            <div class="d-name">Driving Licence</div>
+            <div class="d-meta">1 week ago · 2.1 MB</div>
+          </div>
+          <div class="d-lock"><svg viewBox="0 0 24 24">
+              <path
+                d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
+            </svg></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LUCKY AI -->
+    <div class="sl">AI Assistant</div>
+    <div class="lucky-card reveal">
+      <div class="lucky-glow"></div>
+      <div class="lucky-header">
+        <div class="lucky-avatar">
+          <img src="https://raw.githubusercontent.com/lakhanpatil99/Locklet-pro/main/lucky_bot.png" alt="Lucky AI"
+            class="lucky-avatar-img" />
+        </div>
+        <div class="lucky-info">
+          <div class="lucky-name">Lucky ✦</div>
+          <div class="lucky-role">Locklet Pro AI Assistant</div>
+        </div>
+        <div class="lucky-online"><span></span>Online</div>
+      </div>
+      <div class="lucky-chat">
+        <div>
+          <span class="ai-bubble-label">Lucky</span>
+          <div class="chat-bubble ai-msg">Hey! I'm Lucky, your personal AI assistant inside Locklet Pro. I can help you
+            scan documents, auto-fill details, verify your ID cards and answer any questions. 🔐</div>
+        </div>
+        <div style="align-self:flex-end;max-width:82%">
+          <span class="user-bubble-label">You</span>
+          <div class="chat-bubble user-msg">Can you scan my Aadhaar and fill in my details?</div>
+        </div>
+        <div>
+          <div class="chat-bubble ai-msg ai-msg2">Absolutely! Just upload your Aadhaar image — I'll OCR scan it
+            instantly, extract your name, DOB, UID and address, and auto-fill all fields for you. ✨</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:4px 0">
+          <div
+            style="background:rgba(155,109,255,.1);border:1px solid rgba(155,109,255,.18);border-radius:14px 14px 14px 4px;display:inline-block">
+            <div class="typing-dots"><span></span><span></span><span></span></div>
+          </div>
+          <span style="font-size:9.5px;color:var(--t3);">Lucky is thinking…</span>
+        </div>
+      </div>
+      <div class="lucky-caps">
+        <div class="lcap"><svg viewBox="0 0 24 24">
+            <path d="M9 21H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h4M16 17l5-5-5-5M21 12H9" />
+          </svg>Scan Document</div>
+        <div class="lcap"><svg viewBox="0 0 24 24">
+            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+          </svg>Auto-Fill</div>
+        <div class="lcap"><svg viewBox="0 0 24 24">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3" />
+          </svg>Verify ID</div>
+        <div class="lcap"><svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+          </svg>Ask Lucky</div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="sl">About</div>
+    <div class="card reveal">
+      <div class="ct">
+        <div class="ci v"><svg viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+          </svg></div>
+        <span class="cl">About Locklet Pro</span>
+        <span class="cbadge">v1.0</span>
+      </div>
+      <div class="cb">
+        <p>A smart, secure mobile application to store, scan and manage personal documents. Powered by OCR AI, biometric
+          locks and Lucky — your personal AI assistant. Built for India, designed for everyone.</p>
+      </div>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="sl">Features</div>
+    <div class="card reveal">
+      <div class="ct">
+        <div class="ci g"><svg viewBox="0 0 24 24">
+            <path d="M12 1l2.5 7.5H22l-6.5 4.7 2.5 7.5L12 16.3 6 20.7l2.5-7.5L2 8.5h7.5z" />
+          </svg></div>
+        <span class="cl">All Features</span>
+      </div>
+      <div class="cb">
+        <div class="feat-grid">
+          <div class="fi"><span class="fi-em">🔐</span><span class="fi-label">Secure Vault</span><span
+              class="fi-sub">AES-256 encrypted storage</span></div>
+          <div class="fi"><span class="fi-em">👆</span><span class="fi-label">App Biometric</span><span
+              class="fi-sub">Fingerprint &amp; face to open app</span></div>
+          <div class="fi ai-fi"><span class="fi-em">📷</span><span class="fi-label">OCR Scanner</span><span
+              class="fi-sub">Scan &amp; extract text from docs</span><span class="fi-tag ai">AI</span></div>
+          <div class="fi ai-fi"><span class="fi-em">✍️</span><span class="fi-label">Auto-Fill</span><span
+              class="fi-sub">AI fills your details automatically</span><span class="fi-tag ai">AI</span></div>
+          <div class="fi ai-fi"><span class="fi-em">✅</span><span class="fi-label">Auto Verify</span><span
+              class="fi-sub">Instant document verification</span><span class="fi-tag ai">AI</span></div>
+          <div class="fi ai-fi"><span class="fi-em">🤖</span><span class="fi-label">Lucky AI</span><span
+              class="fi-sub">Personal AI doc assistant</span><span class="fi-tag ai">AI</span></div>
+          <div class="fi green-fi"><span class="fi-em">🔒</span><span class="fi-label">Per-Doc Lock</span><span
+              class="fi-sub">Biometric lock per document</span><span class="fi-tag new">NEW</span></div>
+          <div class="fi green-fi"><span class="fi-em">📵</span><span class="fi-label">Screenshot Block</span><span
+              class="fi-sub">Prevents screen capture</span><span class="fi-tag new">NEW</span></div>
+          <div class="fi"><span class="fi-em">☁️</span><span class="fi-label">Cloud Sync</span><span
+              class="fi-sub">Powered by Supabase</span></div>
+          <div class="fi"><span class="fi-em">📂</span><span class="fi-label">Offline Access</span><span
+              class="fi-sub">No internet needed</span></div>
+          <div class="fi"><span class="fi-em">🚀</span><span class="fi-label">Premium Plan</span><span
+              class="fi-sub">Unlock all pro features</span><span class="fi-tag hot">PRO</span></div>
+          <div class="fi"><span class="fi-em">🪪</span><span class="fi-label">All Doc Types</span><span
+              class="fi-sub">Aadhaar, PAN, Licence &amp; more</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OCR + AUTO-FILL -->
+    <div class="sl">OCR &amp; Auto-Fill</div>
+    <div class="card reveal">
+      <div class="ct">
+        <div class="ci c"><svg viewBox="0 0 24 24">
+            <path
+              d="M9.5 6.5v3h-3v-3h3M11 5H5v6h6V5zm-1.5 9.5v3h-3v-3h3M11 13H5v6h6v-6zm6.5-6.5v3h-3v-3h3M19 5h-6v6h6V5zm-6 8h1.5v1.5H13V13zm1.5 1.5H16V16h-1.5v-1.5zM16 13h1.5v1.5H16V13zm-3 3h1.5v1.5H13V16zm1.5 1.5H16V19h-1.5v-1.5zM16 16h1.5v1.5H16V16zm1.5-1.5H19V16h-1.5v-1.5zM19 13h-1.5v-1.5H19V13z" />
+          </svg></div>
+        <span class="cl">OCR AI Scanner</span>
+        <span class="cbadge ai">AI Powered</span>
+      </div>
+      <div class="cb">
+        <p style="margin-bottom:15px">Point your camera at any document — Lucky's OCR engine instantly reads and
+          extracts all text fields, then auto-fills your profile. No manual typing needed.</p>
+        <div class="ocr-demo">
+          <div class="ocr-header">
+            <span class="ocr-title">Scanning Aadhaar Card…</span>
+            <div class="ocr-scan-badge">
+              <svg style="width:9px;height:9px;fill:currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4-8c0 2.21-1.79 4-4 4s-4-1.79-4-4 1.79-4 4-4 4 1.79 4 4z" />
+              </svg>
+              Scanning
+            </div>
+          </div>
+          <div class="ocr-doc-preview">
+            <div class="ocr-lines">
+              <div class="ocr-line"></div>
+              <div class="ocr-line"></div>
+              <div class="ocr-line"></div>
+              <div class="ocr-line"></div>
+            </div>
+          </div>
+          <div class="ocr-fields">
+            <div class="ocr-field filled">
+              <div class="ocr-field-label">Full Name</div>
+              <div class="ocr-field-val">ABCD</div>
+            </div>
+            <div class="ocr-field filled">
+              <div class="ocr-field-label">Date of Birth</div>
+              <div class="ocr-field-val">01/01/2000</div>
+            </div>
+            <div class="ocr-field filled">
+              <div class="ocr-field-label">UID Number</div>
+              <div class="ocr-field-val">XXXX XXXX 4821</div>
+            </div>
+            <div class="ocr-field">
+              <div class="ocr-field-label">Address</div>
+              <div class="ocr-field-val typing">Pune, MH</div>
+            </div>
+          </div>
+          <div class="autofill-bar">
+            <div class="autofill-icon"><svg viewBox="0 0 24 24">
+                <path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
+              </svg></div>
+            <div class="autofill-text">
+              <div class="autofill-title">Auto-Fill Complete</div>
+              <div class="autofill-sub">All fields filled from Aadhaar scan</div>
+            </div>
+            <div class="autofill-tick"><svg viewBox="0 0 24 24">
+                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
+              </svg></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BIOMETRIC LOCK -->
+    <div class="sl">Biometric Security</div>
+    <div class="card reveal">
+      <div class="ct">
+        <div class="ci gr"><svg viewBox="0 0 24 24">
+            <path
+              d="M17.81 4.47c-.08 0-.16-.02-.23-.06C15.66 3.42 14 3 12.01 3c-1.98 0-3.86.47-5.57 1.41-.24.13-.54.04-.68-.2-.13-.24-.04-.55.2-.68C7.82 2.52 9.86 2 12.01 2c2.13 0 3.99.47 6.03 1.52.25.13.34.43.21.67-.09.18-.26.28-.44.28z" />
+          </svg></div>
+        <span class="cl">Biometric Locks</span>
+        <span class="cbadge new">Multi-Layer</span>
+      </div>
+      <div class="cb">
+        <p style="margin-bottom:15px">Three layers of biometric protection — unlock the app, then unlock individual
+          documents. Every level secured with fingerprint or face recognition.</p>
+        <div class="biometric-demo">
+          <div class="bio-header">
+            <span class="bio-title">Active Biometric Locks</span>
+            <div class="bio-status"><span></span>All Enabled</div>
+          </div>
+          <div class="bio-levels">
+            <div class="bio-level">
+              <div class="bio-level-icon app"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
+                </svg></div>
+              <div class="bio-level-text">
+                <div class="bio-level-name">App Lock</div>
+                <div class="bio-level-sub">Biometric required to open app</div>
+              </div>
+              <div class="bio-toggle"></div>
+            </div>
+            <div class="bio-level">
+              <div class="bio-level-icon doc"><svg viewBox="0 0 24 24">
+                  <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z" />
+                </svg></div>
+              <div class="bio-level-text">
+                <div class="bio-level-name">Per-Document Lock</div>
+                <div class="bio-level-sub">Each document has its own biometric gate</div>
+              </div>
+              <div class="bio-toggle"></div>
+            </div>
+            <div class="bio-level">
+              <div class="bio-level-icon cloud"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
+                </svg></div>
+              <div class="bio-level-text">
+                <div class="bio-level-name">Cloud Sync Lock</div>
+                <div class="bio-level-sub">Auth required before any cloud backup</div>
+              </div>
+              <div class="bio-toggle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREENSHOT BLOCK -->
+    <div class="sl">Privacy Protection</div>
+    <div class="card reveal">
+      <div class="ct">
+        <div class="ci" style="background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.24)"><svg
+            viewBox="0 0 24 24" style="width:16px;height:16px;fill:var(--red)">
+            <path
+              d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
+          </svg></div>
+        <span class="cl">Screenshot Prevention</span>
+        <span class="cbadge new">Active</span>
+      </div>
+      <div class="cb">
+        <div class="ss-demo">
+          <div class="ss-icon">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M17 2H7C5.9 2 5 2.9 5 4v16c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-5 18c-.83 0-1.5-.67-1.5-1.5S11.17 17 12 17s1.5.67 1.5 1.5S12.83 20 12 20zm5-4H7V4h10v12zM9 6l7 4-7 4V6z" />
+            </svg>
+          </div>
+          <div class="ss-text">
+            <div class="ss-title">Screen Capture Blocked</div>
+            <div class="ss-sub">Screenshots &amp; screen recordings are fully disabled inside the app. Your documents
+              stay private — always.</div>
+          </div>
+          <div class="ss-shield">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECURITY -->
+    <div class="sl">Security</div>
+    <div class="card reveal">
+      <div class="ct">
+        <div class="ci gr"><svg viewBox="0 0 24 24">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+          </svg></div>
+        <span class="cl">Security Architecture</span>
+      </div>
+      <div class="cb">
+        <div class="sec-grid">
+          <div class="si"><span class="si-ico">🔒</span><span class="si-title">AES-256</span><span
+              class="si-sub">Military encryption</span></div>
+          <div class="si"><span class="si-ico">🛡️</span><span class="si-title">Zero Trust</span><span class="si-sub">No
+              plain-text ever</span></div>
+          <div class="si"><span class="si-ico">👁️</span><span class="si-title">Biometric</span><span
+              class="si-sub">Local auth only</span></div>
+          <div class="si"><span class="si-ico">📵</span><span class="si-title">No Screenshots</span><span
+              class="si-sub">Screen capture blocked</span></div>
+          <div class="si"><span class="si-ico">🔬</span><span class="si-title">OCR AI</span><span class="si-sub">Smart
+              scan &amp; verify</span></div>
+          <div class="si"><span class="si-ico">🤖</span><span class="si-title">AI Assist</span><span
+              class="si-sub">Lucky always ready</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════
+       FREE vs PRO COMPARISON TABLE
+  ══════════════════════════════════ -->
+    <div class="sl">Free vs Pro</div>
+    <div class="card reveal">
+      <div class="ct">
+        <div class="ci g"><svg viewBox="0 0 24 24">
+            <path
+              d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" />
+          </svg></div>
+        <span class="cl">Plan Comparison</span>
+        <span class="cbadge">Side by Side</span>
+      </div>
+      <div class="cb" style="padding:16px 16px 20px;">
+
+        <p style="font-size:12.5px;color:var(--t2);font-weight:300;margin-bottom:16px;line-height:1.7;">See exactly what
+          you get — no hidden fees, no confusion. Upgrade anytime inside the app.</p>
+
+        <!-- Animated conic border wrap -->
+        <div class="comp-card-wrap" id="compCardWrap">
+          <div class="comp-card-inner">
+
+            <div class="comp-grid" id="compGrid">
+
+              <!-- ── Column Headers ── -->
+              <div class="comp-head-label">
+                <span class="comp-col-label free-lbl" style="visibility: hidden;">Features</span>
+              </div>
+              <div class="comp-head-free">
+                <span class="comp-col-label free-lbl">Free</span>
+                <span class="comp-price free-price">₹0 <sub>/forever</sub></span>
+              </div>
+              <div class="comp-head-pro">
+                <span class="comp-col-label pro-lbl">⚡ Pro</span>
+                <span class="comp-price pro-price">₹10 <sub>/month</sub></span>
+                <div class="comp-pro-badge">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                  Best Value
+                </div>
+              </div>
+
+              <!-- ── STORAGE ── -->
+              <div class="comp-section-label">Storage</div>
+              <div class="comp-section-free">Free</div>
+              <div class="comp-section-pro">Pro</div>
+
+              <div class="comp-row-pair" data-pair="1">
+                <div class="comp-cell-label" data-tip="Total space for your encrypted documents">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M4 4h16v4H4zm0 6h16v4H4zm0 6h16v4H4zm2-10h2v2H6zm0 6h2v2H6zm0 6h2v2H6z" stroke="none" />
+                  </svg>
+                  Cloud Storage
+                </div>
+                <div class="comp-cell-free">100 MB Storage</div>
+                <div class="comp-cell-pro">500 MB Secure Cloud Storage</div>
+              </div>
+
+              <!-- ── AI FEATURES ── -->
+              <div class="comp-section-label">AI Features</div>
+              <div class="comp-section-free">Free</div>
+              <div class="comp-section-pro">Pro</div>
+
+              <div class="comp-row-pair" data-pair="2">
+                <div class="comp-cell-label" data-tip="Ask Lucky AI questions about your documents">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5z" />
+                  </svg>
+                  Lucky AI Chat
+                </div>
+                <div class="comp-cell-free">Limited AI (5 chats/day)</div>
+                <div class="comp-cell-pro">Unlimited AI + Lucky AI access</div>
+              </div>
+
+              <!-- ── OCR ── -->
+              <div class="comp-section-label">OCR</div>
+              <div class="comp-section-free">Free</div>
+              <div class="comp-section-pro">Pro</div>
+
+              <div class="comp-row-pair" data-pair="3">
+                <div class="comp-cell-label" data-tip="Extract text from ID cards and auto-fill forms">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M3 4V1h3v3H3zm15-3v3h3V1h-3zM3 23v-3h3v3H3zm15-3v3h3v-3h-3zM8 8h8v8H8z" />
+                  </svg>
+                  Auto-scan &amp; Fill
+                </div>
+                <div class="comp-cell-free">5 scans/day</div>
+                <div class="comp-cell-pro">Unlimited OCR scans &amp; Auto-fill</div>
+              </div>
+
+              <!-- ── SECURITY ── -->
+              <div class="comp-section-label">Security</div>
+              <div class="comp-section-free">Free</div>
+              <div class="comp-section-pro">Pro</div>
+
+              <div class="comp-row-pair" data-pair="4">
+                <div class="comp-cell-label" data-tip="Lock individual documents with fingerprint/face">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 1C8.676 1 6 3.676 6 7v1H4v15h16V8h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v1H8V7c0-2.276 1.724-4 4-4zm0 9a2 2 0 1 1 0 4 2 2 0 0 1 0-4z" />
+                  </svg>
+                  App/Doc Lock
+                </div>
+                <div class="comp-cell-free">Basic app lock</div>
+                <div class="comp-cell-pro">Per-document biometric lock</div>
+              </div>
+
+              <!-- ── OFFLINE ACCESS ── -->
+              <div class="comp-section-label">Offline Access</div>
+              <div class="comp-section-free">Free</div>
+              <div class="comp-section-pro">Pro</div>
+
+              <div class="comp-row-pair" data-pair="5">
+                <div class="comp-cell-label" data-tip="Access encrypted documents without internet">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                  </svg>
+                  Works offline
+                </div>
+                <div class="comp-cell-free faded-text"><svg class="c-icon no" viewBox="0 0 24 24">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2.2" stroke-linecap="round" />
+                  </svg> Not available</div>
+                <div class="comp-cell-pro"><svg class="c-icon gold-check" viewBox="0 0 24 24">
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
+                  </svg> Available</div>
+              </div>
+
+              <!-- ── PRIVACY ── -->
+              <div class="comp-section-label">Privacy</div>
+              <div class="comp-section-free">Free</div>
+              <div class="comp-section-pro">Pro</div>
+
+              <div class="comp-row-pair" data-pair="6">
+                <div class="comp-cell-label" data-tip="Prevent taking screenshots of sensitive docs">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+                  </svg>
+                  Anti-Screenshot List
+                </div>
+                <div class="comp-cell-free faded-text"><svg class="c-icon no" viewBox="0 0 24 24">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2.2" stroke-linecap="round" />
+                  </svg> Allowed</div>
+                <div class="comp-cell-pro"><svg class="c-icon gold-check" viewBox="0 0 24 24">
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
+                  </svg> Blocked (Ultra-secure)</div>
+              </div>
+
+              <!-- ── SHARING ── -->
+              <div class="comp-section-label">Sharing</div>
+              <div class="comp-section-free">Free</div>
+              <div class="comp-section-pro">Pro</div>
+
+              <div class="comp-row-pair" data-pair="7">
+                <div class="comp-cell-label" data-tip="Share encrypted documents with a secure link">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92c0-1.61-1.31-2.92-2.92-2.92z" />
+                  </svg>
+                  Secure Sharing
+                </div>
+                <div class="comp-cell-free faded-text"><svg class="c-icon no" viewBox="0 0 24 24">
+                    <path d="M18 6L6 18M6 6l12 12" stroke-width="2.2" stroke-linecap="round" />
+                  </svg> Limited</div>
+                <div class="comp-cell-pro"><svg class="c-icon gold-check" viewBox="0 0 24 24">
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
+                  </svg> Encrypted links</div>
+              </div>
+
+              <!-- ── SUPPORT ── -->
+              <div class="comp-section-label">Support</div>
+              <div class="comp-section-free">Free</div>
+              <div class="comp-section-pro">Pro</div>
+
+              <div class="comp-row-pair comp-last" data-pair="8">
+                <div class="comp-cell-label comp-last" data-tip="Get help when you need it">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2c5.52 0 10 4.48 10 10s-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 2c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zM11 15h2v2h-2zm0-8h2v6h-2z" />
+                  </svg>
+                  Assistance
+                </div>
+                <div class="comp-cell-free comp-last">Email support</div>
+                <div class="comp-cell-pro comp-last"><svg class="c-icon gold-check" viewBox="0 0 24 24">
+                    <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
+                  </svg> Priority support 24/7</div>
+              </div>
+
+            </div><!-- /comp-grid -->
+          </div><!-- /comp-card-inner -->
+        </div><!-- /comp-card-wrap -->
+
+        <!-- CTA -->
+        <div class="comp-cta-wrap">
+          <a class="btn-upgrade" href="https://play.google.com/apps/testing/com.lockletpro" target="_blank"
+            rel="noopener">
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor">
+              <path d="M5 3l14 9-14 9V3z" />
+            </svg>
+            Upgrade to Pro — Only ₹10/month
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div class="sl">What Users Say</div>
+    <div class="card sr">
+      <div class="ct">
+        <div class="ci g"><svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+          </svg></div>
+        <span class="cl">User Reviews</span>
+        <span class="cbadge new">★ 5.0</span>
+      </div>
+      <div class="cb">
+        <div class="testi-slider" id="testiSlider">
+          <div class="testi-track" id="testiTrack">
+            <div class="testi-card">
+              <div class="testi-stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <div class="testi-text">"Locklet Pro is a game-changer! I finally feel safe storing my Aadhaar and PAN
+                cards digitally. The OCR scanning is incredibly fast and the biometric locks give me peace of mind."
+              </div>
+              <div class="testi-author">
+                <div class="testi-avatar t1">RP</div>
+                <div>
+                  <div class="testi-name">Rahul P.</div>
+                  <div class="testi-role">Software Engineer, Pune</div>
+                </div>
+              </div>
+            </div>
+            <div class="testi-card">
+              <div class="testi-stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <div class="testi-text">"Lucky AI is like having a personal assistant. It scanned my driving licence and
+                filled in everything automatically. The screenshot blocking feature is brilliant!"</div>
+              <div class="testi-author">
+                <div class="testi-avatar t2">SM</div>
+                <div>
+                  <div class="testi-name">Sneha M.</div>
+                  <div class="testi-role">CA Student, Mumbai</div>
+                </div>
+              </div>
+            </div>
+            <div class="testi-card">
+              <div class="testi-stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <div class="testi-text">"Best document storage app I've used. The per-document biometric lock is amazing —
+                my family can use the phone but can't access my documents. Premium is totally worth ₹10/month!"</div>
+              <div class="testi-author">
+                <div class="testi-avatar t3">AK</div>
+                <div>
+                  <div class="testi-name">Amit K.</div>
+                  <div class="testi-role">Business Owner, Delhi</div>
+                </div>
+              </div>
+            </div>
+            <div class="testi-card">
+              <div class="testi-stars"><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg><svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg></div>
+              <div class="testi-text">"The cloud sync works flawlessly across devices. I can access all my important
+                documents even without internet. The dark UI is stunning and very easy on the eyes."</div>
+              <div class="testi-author">
+                <div class="testi-avatar t4">PD</div>
+                <div>
+                  <div class="testi-name">Priya D.</div>
+                  <div class="testi-role">College Student, Bangalore</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-dots" id="testiDots">
+          <div class="testi-dot active" data-idx="0"></div>
+          <div class="testi-dot" data-idx="1"></div>
+          <div class="testi-dot" data-idx="2"></div>
+          <div class="testi-dot" data-idx="3"></div>
+        </div>
+        <div class="testi-nav">
+          <button class="testi-btn" id="testiPrev"><svg viewBox="0 0 24 24">
+              <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+            </svg></button>
+          <button class="testi-btn" id="testiNext"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEGAL & ACCOUNT -->
+    <div class="sl">Legal &amp; Account</div>
+    <div class="card reveal">
+      <div class="ct">
+        <div class="ci v"><svg viewBox="0 0 24 24">
+            <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z" />
+          </svg></div>
+        <span class="cl">Legal &amp; Account</span>
+      </div>
+      <div class="cb">
+        <a href="edit-account.html" class="ll">
+          <div class="ll-l">
+            <div class="ll-dot" style="background:rgba(96,165,250,.1);border:1px solid rgba(96,165,250,.22)"><svg
+                viewBox="0 0 24 24" style="fill:var(--blue)">
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+              </svg></div>
+            <div class="ll-info"><span class="ll-t">Edit Account</span><span class="ll-sub">Profile settings &amp;
+                preferences</span></div>
+          </div>
+          <div class="ll-arr"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <a href="privacy.html" class="ll">
+          <div class="ll-l">
+            <div class="ll-dot lp"><svg viewBox="0 0 24 24">
+                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+              </svg></div>
+            <div class="ll-info"><span class="ll-t">Privacy Policy</span><span class="ll-sub">How we handle your
+                data</span></div>
+          </div>
+          <div class="ll-arr"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <a href="terms.html" class="ll">
+          <div class="ll-l">
+            <div class="ll-dot lt"><svg viewBox="0 0 24 24">
+                <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 7V3.5L18.5 9H13z" />
+              </svg></div>
+            <div class="ll-info"><span class="ll-t">Terms &amp; Conditions</span><span class="ll-sub">Rules for using
+                Locklet Pro</span></div>
+          </div>
+          <div class="ll-arr"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+        <a href="delete-account.html" class="ll">
+          <div class="ll-l">
+            <div class="ll-dot ld"><svg viewBox="0 0 24 24">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+              </svg></div>
+            <div class="ll-info"><span class="ll-t">Delete Account</span><span class="ll-sub">Permanently remove your
+                data</span></div>
+          </div>
+          <div class="ll-arr"><svg viewBox="0 0 24 24">
+              <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+            </svg></div>
+        </a>
+      </div>
+    </div>
+
+    <!-- DEVELOPER -->
+    <div class="sl">Developer</div>
+    <div class="card reveal">
+      <div class="ct">
+        <div class="ci gr"><svg viewBox="0 0 24 24">
+            <path
+              d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z" />
+          </svg></div>
+        <span class="cl">Developer</span>
+      </div>
+      <div class="cb">
+        <div class="dr"><span class="dk">Name</span><span class="dv">Lakhansing Narsing Patil</span></div>
+        <div class="dr"><span class="dk">Email</span><span class="dv"><a
+              href="mailto:lockletpro@gmail.com">lockletpro@gmail.com</a></span></div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      © 2026 Locklet Pro. All rights reserved.<br />
+      <a href="features.html">Features</a><span class="fsep"> · </span>
+       <a href="refund.html">Refund Policy</a><span class="fsep"> · </span>
+      <a href="about.html">About</a><span class="fsep"> · </span>
+      <a href="faq.html">FAQ</a><span class="fsep"> · </span>
+      <a href="contact.html">Contact</a><span class="fsep"> · </span>
+      <a href="edit-account.html">Edit Account</a><span class="fsep"> · </span>
+      <a href="privacy.html">Privacy</a><span class="fsep"> · </span>
+      <a href="terms.html">Terms</a>
+      <div class="footer-insta-row">
+        <a href="https://www.instagram.com/locklet.app?igsh=MXNvMGY0Y2Voc25qOA==" target="_blank" rel="noopener"
+          class="footer-insta">
+          <!-- Instagram SVG logo -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8" />
+            <circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" />
+          </svg>
+          @locklet.app
+        </a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Sticky Bottom CTA -->
+  <div class="sticky-cta" id="stickyCta">
+    <div class="sticky-cta-content">
+      <div class="sticky-cta-text">
+        <strong>Get Locklet Pro</strong>
+        <span>Secure your documents today</span>
+      </div>
+      <a href="https://play.google.com/apps/testing/com.lockletpro" target="_blank" class="sticky-cta-btn">Download
+        Free</a>
+    </div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button class="btt" id="bttBtn" aria-label="Back to top">
+    <svg viewBox="0 0 24 24">
+      <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z" />
+    </svg>
+  </button>
+
+  <script>
+    // ── CUSTOM CURSOR ──
+    const cur = document.getElementById('cursor');
+    const ring = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cur.style.left = mx + 'px'; cur.style.top = my + 'px'; });
+    function lerp(a, b, n) { return (1 - n) * a + n * b; }
+    function animCursor() {
+      rx = lerp(rx, mx, .14); ry = lerp(ry, my, .14);
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+      requestAnimationFrame(animCursor);
+    }
+    animCursor();
+    document.querySelectorAll('a, button, .lcap, .fi, .si, .stat, .bio-level').forEach(el => {
+      el.addEventListener('mouseenter', () => { cur.style.transform = 'translate(-50%,-50%) scale(2.2)'; ring.style.transform = 'translate(-50%,-50%) scale(1.5)'; ring.style.borderColor = 'rgba(232,184,109,.8)'; });
+      el.addEventListener('mouseleave', () => { cur.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.borderColor = 'rgba(232,184,109,.5)'; });
+    });
+
+    // ── PARTICLES ──
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    let W, H, dots = [];
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    const colors = ['rgba(232,184,109,.5)', 'rgba(155,109,255,.5)', 'rgba(52,211,153,.4)', 'rgba(34,211,238,.35)'];
+    for (let i = 0; i < 55; i++) {
+      dots.push({ x: Math.random() * 1400, y: Math.random() * 900, r: Math.random() * 1.5 + .4, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3, c: colors[Math.floor(Math.random() * colors.length)] });
+    }
+    function drawDots() {
+      ctx.clearRect(0, 0, W, H);
+      dots.forEach(d => {
+        ctx.beginPath(); ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+        ctx.fillStyle = d.c; ctx.fill();
+        d.x += d.vx; d.y += d.vy;
+        if (d.x < 0 || d.x > W) d.vx *= -1;
+        if (d.y < 0 || d.y > H) d.vy *= -1;
+      });
+      requestAnimationFrame(drawDots);
+    }
+    drawDots();
+
+    // ── COUNT UP STATS ──
+    const countObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const el = e.target;
+          const target = parseInt(el.dataset.count);
+          if (isNaN(target)) return;
+          const prefix = el.dataset.prefix || '';
+          const suffix = el.dataset.suffix || '';
+          const duration = 1500, stepTime = 16, steps = duration / stepTime;
+          const increment = target / steps;
+          let current = 0;
+          const step = () => {
+            current += increment;
+            if (current >= target) { el.textContent = prefix + target + suffix; }
+            else { el.textContent = prefix + Math.ceil(current) + suffix; requestAnimationFrame(step); }
+          };
+          requestAnimationFrame(step);
+          countObs.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(el => countObs.observe(el));
+
+    // ── PLAY BUTTON RIPPLE ──
+    const btn = document.querySelector('.play-btn');
+    if (btn) {
+      btn.addEventListener('click', e => {
+        const r = document.createElement('span');
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        r.style.cssText = `position:absolute;border-radius:50%;pointer-events:none;width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px;background:rgba(232,184,109,.18);transform:scale(0);animation:rippleOut .6s ease-out forwards;z-index:0;`;
+        btn.appendChild(r);
+        setTimeout(() => r.remove(), 700);
+      });
+    }
+
+    // ── BACK TO TOP ──
+    const bttBtn = document.getElementById('bttBtn');
+    if (bttBtn) {
+      window.addEventListener('scroll', () => { bttBtn.classList.toggle('visible', window.scrollY > 400); });
+      bttBtn.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+    }
+
+    // ── SCROLL REVEAL OBSERVER ──
+    const srObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); srObserver.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.sr').forEach(el => srObserver.observe(el));
+
+    // ── TESTIMONIALS SLIDER ──
+    (function () {
+      const track = document.getElementById('testiTrack');
+      const dots = document.querySelectorAll('#testiDots .testi-dot');
+      const prevBtn = document.getElementById('testiPrev');
+      const nextBtn = document.getElementById('testiNext');
+      if (!track || !dots.length) return;
+      let current = 0;
+      const total = dots.length;
+      function goTo(idx) {
+        current = (idx + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+      dots.forEach(d => d.addEventListener('click', () => goTo(parseInt(d.dataset.idx))));
+      if (prevBtn) prevBtn.addEventListener('click', () => goTo(current - 1));
+      if (nextBtn) nextBtn.addEventListener('click', () => goTo(current + 1));
+      setInterval(() => goTo(current + 1), 5000);
+    })();
+
+    // ── COMPARISON TABLE — ROW STAGGER + HOVER PAIRS ──
+    (function () {
+      const pairs = document.querySelectorAll('.comp-row-pair');
+      if (!pairs.length) return;
+
+      function revealPair(pair) {
+        if (pair.classList.contains('revealed')) return;
+        const idx = parseInt(pair.dataset.pair) || 1;
+        const allCells = pair.querySelectorAll('.comp-cell-label, .comp-cell-free, .comp-cell-pro');
+        allCells.forEach((cell, i) => {
+          cell.style.transitionDelay = (idx * 0.055 + i * 0.025) + 's';
+        });
+        pair.classList.add('revealed');
+        // Force inline styles as failsafe
+        allCells.forEach(cell => {
+          cell.style.opacity = '1';
+          cell.style.transform = 'translateY(0)';
+          cell.style.visibility = 'visible';
+        });
+      }
+
+
+
+      // Stagger reveal on scroll — more aggressive threshold
+      const compObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            revealPair(e.target);
+            compObs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.01, rootMargin: '50px 0px' });
+
+      pairs.forEach(p => compObs.observe(p));
+
+      // Failsafe: force reveal all rows after 2 seconds
+      setTimeout(() => {
+        pairs.forEach(pair => revealPair(pair));
+      }, 2000);
+
+      // Paired hover highlight
+      pairs.forEach(pair => {
+        const allCells = pair.querySelectorAll('.comp-cell-label, .comp-cell-free, .comp-cell-pro');
+        allCells.forEach(cell => {
+          cell.addEventListener('mouseenter', () => allCells.forEach(c => c.classList.add('row-hover')));
+          cell.addEventListener('mouseleave', () => allCells.forEach(c => c.classList.remove('row-hover')));
+        });
+      });
+    })();
+
+  </script>
+
+  <script>
+    // ── HAMBURGER MENU ──
+    (function () {
+      var hamBtn = document.getElementById('hamBtn');
+      var drawer = document.getElementById('menuDrawer');
+      var backdrop = document.getElementById('menuBackdrop');
+      var closeBtn = document.getElementById('drawerClose');
+      if (!hamBtn || !drawer || !backdrop) { console.warn('Hamburger: elements not found'); return; }
+      function openDrawer() { hamBtn.classList.add('open'); drawer.classList.add('open'); backdrop.classList.add('open'); document.body.style.overflow = 'hidden'; }
+      function closeDrawer() { hamBtn.classList.remove('open'); drawer.classList.remove('open'); backdrop.classList.remove('open'); document.body.style.overflow = ''; }
+      hamBtn.addEventListener('click', function (e) { e.stopPropagation(); drawer.classList.contains('open') ? closeDrawer() : openDrawer(); });
+      if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
+      backdrop.addEventListener('click', closeDrawer);
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDrawer(); });
+      drawer.querySelectorAll('.drawer-link').forEach(function (link) {
+        if (!(link.getAttribute('href') || '').startsWith('http')) {
+          link.addEventListener('click', function () { setTimeout(closeDrawer, 80); });
+        }
+      });
+    })();
+  </script>
+
+  <script>
+    window.addEventListener('load', () => { setTimeout(() => { document.getElementById('pb')?.classList.add('loaded'); }, 50); });
+    document.querySelectorAll('a[href]').forEach(a => {
+      a.addEventListener('click', e => {
+        const href = a.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('mailto:') || a.target === '_blank') return;
+        e.preventDefault();
+        document.getElementById('pb')?.classList.remove('loaded');
+        setTimeout(() => window.location.href = href, 250);
+      });
+    });
+  </script>
+
+</body>
+
+</html>
